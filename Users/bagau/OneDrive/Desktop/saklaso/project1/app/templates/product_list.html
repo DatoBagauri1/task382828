@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Filters Showcase</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { color: #2c3e50; }
+        h2 { margin-top: 30px; color: #34495e; }
+        table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .empty { font-style: italic; color: #888; }
+    </style>
+</head>
+<body>
+
+<h1>All Filters Showcase</h1>
+
+
+<h2>All Products</h2>
+<table>
+    <tr>
+        <th>ID</th><th>Name</th><th>Price</th><th>Quantity</th>
+    </tr>
+    {% for p in products %}
+    <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}</td>
+        <td>{{ p.quantity }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4" class="empty">No products found.</td></tr>
+    {% endfor %}
+</table>
+
+
+<h2>Exact: name = Laptop</h2>
+<table>
+    <tr>
+        <th>ID</th><th>Name</th><th>Price</th><th>Quantity</th>
+    </tr>
+    {% for p in exact_products %}
+    <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}</td>
+        <td>{{ p.quantity }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4" class="empty">No products found.</td></tr>
+    {% endfor %}
+</table>
+
+
+<h2>Startswith: iPhone</h2>
+<table>
+    <tr>
+        <th>ID</th><th>Name</th><th>Price</th><th>Quantity</th>
+    </tr>
+    {% for p in startswith_products %}
+    <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}</td>
+        <td>{{ p.quantity }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4" class="empty">No products found.</td></tr>
+    {% endfor %}
+</table>
+
+
+<h2>Endswith: Phone</h2>
+<table>
+    <tr>
+        <th>ID</th><th>Name</th><th>Price</th><th>Quantity</th>
+    </tr>
+    {% for p in endswith_products %}
+    <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}</td>
+        <td>{{ p.quantity }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4" class="empty">No products found.</td></tr>
+    {% endfor %}
+</table>
+
+
+<h2>Price &gt; 500</h2>
+<table>
+    <tr>
+        <th>ID</th><th>Name</th><th>Price</th>
+    </tr>
+    {% for p in price_gt %}
+    <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3" class="empty">No products found.</td></tr>
+    {% endfor %}
+</table>
+
+<h2>Price ≥ 500</h2>
+<table>
+    <tr>
+        <th>ID</th><th>Name</th><th>Price</th>
+    </tr>
+    {% for p in price_gte %}
+    <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3" class="empty">No products found.</td></tr>
+    {% endfor %}
+</table>
+
+<h2>Price &lt; 500</h2>
+<table>
+    <tr>
+        <th>ID</th><th>Name</th><th>Price</th>
+    </tr>
+    {% for p in price_lt %}
+    <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3" class="empty">No products found.</td></tr>
+    {% endfor %}
+</table>
+
+<h2>Price ≤ 600</h2>
+<table>
+    <tr>
+        <th>ID</th><th>Name</th><th>Price</th>
+    </tr>
+    {% for p in price_lte %}
+    <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3" class="empty">No products found.</td></tr>
+    {% endfor %}
+</table>
+
+<h2>Price Range 300–800</h2>
+<table>
+    <tr>
+        <th>ID</th><th>Name</th><th>Price</th>
+    </tr>
+    {% for p in price_range %}
+    <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3" class="empty">No products found.</td></tr>
+    {% endfor %}
+</table>
+
+
+<h2>Customer last name contains "Smith"</h2>
+<table>
+    <tr>
+        <th>ID</th><th>First Name</th><th>Last Name</th><th>Age</th><th>Email</th>
+    </tr>
+    {% for c in contains_lastname %}
+    <tr>
+        <td>{{ c.id }}</td>
+        <td>{{ c.first_name }}</td>
+        <td>{{ c.last_name }}</td>
+        <td>{{ c.age }}</td>
+        <td>{{ c.email }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5" class="empty">No customers found.</td></tr>
+    {% endfor %}
+</table>
+
+<h2>Product ID in [1,2,3]</h2>
+<table>
+    <tr>
+        <th>ID</th><th>Name</th><th>Price</th><th>Quantity</th>
+    </tr>
+    {% for p in product_id_in %}
+    <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}</td>
+        <td>{{ p.quantity }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4" class="empty">No products found.</td></tr>
+    {% endfor %}
+</table>
+
+<h2>Email is NULL</h2>
+<table>
+    <tr>
+        <th>ID</th><th>First Name</th><th>Last Name</th><th>Age</th>
+    </tr>
+    {% for c in email_isnull %}
+    <tr>
+        <td>{{ c.id }}</td>
+        <td>{{ c.first_name }}</td>
+        <td>{{ c.last_name }}</td>
+        <td>{{ c.age }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4" class="empty">No customers found.</td></tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
