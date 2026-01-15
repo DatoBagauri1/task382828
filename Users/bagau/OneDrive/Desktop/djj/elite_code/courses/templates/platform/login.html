@@ -1,0 +1,106 @@
+{% extends 'platform/base.html' %}
+
+{% block content %}
+<div class="min-h-[calc(100vh-80px)] w-full flex items-center justify-center p-6 relative overflow-hidden bg-[#030303]">
+    
+    <div class="absolute inset-0 z-0">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px] animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[100px] animate-pulse" style="animation-delay: 1s;"></div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-[500px] perspective-1000">
+        
+        <div class="bg-[#0a0a0a] border border-white/10 border-b-0 rounded-t-2xl p-8 flex justify-between items-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500"></div>
+            
+            <div class="flex flex-col">
+                <span class="text-indigo-500 text-[10px] font-black uppercase tracking-[0.4em] mb-1">Secure_Uplink</span>
+                <h1 class="text-2xl font-black text-white italic uppercase tracking-tighter">Identity_Check</h1>
+            </div>
+            
+            <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+        </div>
+
+        <div class="bg-[#050505]/90 backdrop-blur-xl border border-white/10 rounded-b-2xl p-10 shadow-2xl relative">
+            
+            {% if form.errors %}
+            <div class="mb-8 p-4 bg-red-500/10 border border-red-500/20 rounded-lg flex items-start gap-4 animate-shake">
+                <svg class="w-5 h-5 text-red-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div>
+                    <h4 class="text-red-500 text-[10px] font-black uppercase tracking-widest mb-1">Access_Denied</h4>
+                    <p class="text-xs text-gray-400 font-mono">Credentials rejected by server.</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <form method="post" class="space-y-8">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                <div class="space-y-2 group">
+                    <label class="flex justify-between text-[10px] font-black text-gray-500 uppercase tracking-widest group-focus-within:text-indigo-500 transition-colors">
+                        {{ field.label }}
+                        {% if field.field.required %}<span class="text-red-500">*</span>{% endif %}
+                    </label>
+                    
+                    <div class="relative">
+                        {{ field }}
+                        
+                        <div class="absolute bottom-0 left-0 h-[1px] w-full bg-white/10"></div>
+                        <div class="absolute bottom-0 left-0 h-[1px] w-0 bg-indigo-500 group-focus-within:w-full transition-all duration-500"></div>
+                    </div>
+                    
+                    {% if field.help_text %}
+                    <p class="text-[9px] text-gray-600 font-mono pt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="w-full relative group overflow-hidden py-5 bg-white text-black font-black text-xs uppercase tracking-[0.3em] rounded-xl transition-all hover:scale-[1.02]">
+                    <span class="relative z-10">Authenticate_User</span>
+                    <div class="absolute inset-0 bg-indigo-600 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    <span class="absolute inset-0 z-10 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-black text-xs uppercase tracking-[0.3em]">Processing...</span>
+                </button>
+            </form>
+
+            <div class="mt-10 pt-8 border-t border-white/5 flex items-center justify-center gap-6">
+                {% if 'login' in request.path %}
+                    <a href="{% url 'signup' %}" class="text-gray-500 hover:text-white text-[10px] uppercase tracking-widest transition-colors font-bold">Initialize_Account</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="text-gray-500 hover:text-white text-[10px] uppercase tracking-widest transition-colors font-bold">Return_to_Login</a>
+                {% endif %}
+                <span class="w-1 h-1 bg-gray-700 rounded-full"></span>
+                <a href="#" class="text-gray-500 hover:text-white text-[10px] uppercase tracking-widest transition-colors font-bold">Lost_Key?</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* FORM INPUT OVERRIDES */
+    input {
+        width: 100%;
+        background-color: transparent !important;
+        border: none !important;
+        border-bottom: 1px solid transparent !important;
+        padding: 1rem 0 !important;
+        color: white !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-size: 0.85rem !important;
+        transition: all 0.3s ease !important;
+    }
+    input:focus {
+        outline: none !important;
+        background-color: transparent !important;
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+        20%, 40%, 60%, 80% { transform: translateX(4px); }
+    }
+    .animate-shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+</style>
+{% endblock %}

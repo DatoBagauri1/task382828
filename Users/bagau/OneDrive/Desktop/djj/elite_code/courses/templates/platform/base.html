@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELITE CODE // SYSTEM_ROOT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;700;800&family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        elite: {
+                            base: '#030303',
+                            panel: '#0a0a0a',
+                            border: '#1a1a1a',
+                            primary: '#6366f1', // Indigo 500
+                            accent: '#a855f7', // Purple 500
+                            success: '#22c55e',
+                            danger: '#ef4444',
+                            warning: '#eab308',
+                        }
+                    },
+                    animation: {
+                        'scan': 'scan 4s linear infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        scan: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100%)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CORE OVERRIDES */
+        body { background-color: #030303; color: #e5e7eb; overflow-x: hidden; }
+        .glass-panel {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .neon-text { text-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
+        .neon-border { box-shadow: 0 0 20px rgba(99, 102, 241, 0.1); }
+        
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #030303; }
+        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+
+        /* UTILITIES */
+        .scanline::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative selection:bg-indigo-500/30 selection:text-white">
+
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-transparent"></div>
+    </div>
+
+    {% if messages %}
+    <div class="fixed top-28 right-8 z-50 flex flex-col gap-4">
+        {% for message in messages %}
+        <div class="flex items-start gap-4 p-4 glass-panel border-l-4 border-indigo-500 rounded-r-lg shadow-2xl animate-bounce max-w-sm">
+            <div class="p-2 bg-indigo-500/10 rounded-full text-indigo-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div>
+                <h4 class="font-bold text-white text-xs uppercase tracking-widest mb-1">System_Message</h4>
+                <p class="text-xs text-gray-400 font-mono">{{ message }}</p>
+            </div>
+            <button onclick="this.parentElement.remove()" class="text-gray-500 hover:text-white transition-colors">×</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <nav class="sticky top-0 z-40 w-full glass-panel border-b-0 border-white/5">
+        <div class="max-w-[1800px] mx-auto px-6 h-20 flex items-center justify-between">
+            
+            <div class="flex items-center gap-12">
+                <a href="{% url 'home' %}" class="flex items-center gap-3 group">
+                    <div class="relative w-10 h-10 flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-700 rounded-lg shadow-lg shadow-indigo-500/20 group-hover:rotate-180 transition-transform duration-700 ease-out">
+                        <span class="font-black text-white text-xl">E</span>
+                        <div class="absolute inset-0 border border-white/20 rounded-lg"></div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-lg font-black italic tracking-tighter text-white uppercase leading-none">Elite<span class="text-indigo-500">Code</span></span>
+                        <span class="text-[9px] font-mono text-gray-500 tracking-[0.3em] uppercase group-hover:text-indigo-400 transition-colors">v2.0.4_Stable</span>
+                    </div>
+                </a>
+
+                <div class="hidden lg:flex items-center gap-1">
+                    <a href="{% url 'home' %}" class="px-5 py-2 text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 rounded transition-all">Modules</a>
+                    <a href="#" class="px-5 py-2 text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 rounded transition-all">Leaderboard</a>
+                    <a href="#" class="px-5 py-2 text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 rounded transition-all">Docs</a>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-6">
+                {% if user.is_authenticated %}
+                <div class="hidden md:flex items-center gap-4 px-4 py-2 bg-white/[0.02] border border-white/5 rounded-full">
+                    <div class="flex flex-col text-right">
+                        <span class="text-[9px] text-gray-500 font-black uppercase tracking-widest">Operator</span>
+                        <span class="text-xs text-indigo-400 font-mono font-bold">{{ user.username }}</span>
+                    </div>
+                    <div class="h-8 w-8 rounded-full bg-gradient-to-tr from-gray-800 to-gray-900 border border-white/10 flex items-center justify-center">
+                        <span class="text-xs font-bold text-white">{{ user.username|first|upper }}</span>
+                    </div>
+                </div>
+                
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="group relative px-6 py-2 overflow-hidden rounded-full bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-all duration-300">
+                        <span class="relative z-10 text-[10px] font-black uppercase tracking-widest">Terminate</span>
+                    </button>
+                </form>
+                {% else %}
+                <div class="flex items-center gap-4">
+                    <a href="{% url 'login' %}" class="text-xs font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">Login</a>
+                    <a href="{% url 'signup' %}" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg shadow-indigo-600/20 transition-all">Initialize</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative z-10 flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="relative z-10 border-t border-white/5 bg-[#050505] pt-20 pb-10">
+        <div class="max-w-[1800px] mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div class="col-span-1 md:col-span-2">
+                <h3 class="text-2xl font-black italic uppercase text-white mb-6">Elite<span class="text-indigo-600">Code</span></h3>
+                <p class="text-gray-500 text-sm leading-loose max-w-md mb-8">
+                    Advanced neural interface for developer education. This system is designed for high-performance cognitive synchronization with modern syntax architectures.
+                </p>
+                <div class="flex gap-4">
+                    <div class="w-10 h-10 rounded bg-white/5 flex items-center justify-center text-gray-400 hover:bg-indigo-600 hover:text-white transition-colors cursor-pointer"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></div>
+                    <div class="w-10 h-10 rounded bg-white/5 flex items-center justify-center text-gray-400 hover:bg-indigo-600 hover:text-white transition-colors cursor-pointer"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></div>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="text-white text-[10px] font-black uppercase tracking-[0.3em] mb-6">System_Links</h4>
+                <ul class="space-y-4">
+                    <li><a href="#" class="text-xs text-gray-500 hover:text-indigo-400 font-mono transition-colors">/var/logs</a></li>
+                    <li><a href="#" class="text-xs text-gray-500 hover:text-indigo-400 font-mono transition-colors">/usr/bin/docs</a></li>
+                    <li><a href="#" class="text-xs text-gray-500 hover:text-indigo-400 font-mono transition-colors">/etc/pricing</a></li>
+                    <li><a href="#" class="text-xs text-gray-500 hover:text-indigo-400 font-mono transition-colors">/home/contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white text-[10px] font-black uppercase tracking-[0.3em] mb-6">Server_Stats</h4>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-[10px] text-gray-600 font-bold">UPTIME</span>
+                        <span class="text-[10px] text-green-500 font-mono">99.99%</span>
+                    </div>
+                    <div class="w-full bg-white/5 rounded-full h-1">
+                        <div class="bg-green-500 h-1 rounded-full w-[99%]"></div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-[10px] text-gray-600 font-bold">LATENCY</span>
+                        <span class="text-[10px] text-indigo-500 font-mono">24ms</span>
+                    </div>
+                    <div class="w-full bg-white/5 rounded-full h-1">
+                        <div class="bg-indigo-500 h-1 rounded-full w-[30%]"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="max-w-[1800px] mx-auto px-6 pt-8 border-t border-white/5 flex justify-between items-center">
+            <p class="text-[9px] text-gray-700 font-mono uppercase">© 2026 Elite Code Systems. Protocol Secured.</p>
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                <span class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">System_Online</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

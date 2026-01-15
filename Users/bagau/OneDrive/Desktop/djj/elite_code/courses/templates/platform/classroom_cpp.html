@@ -1,0 +1,182 @@
+{% extends 'platform/base.html' %}
+
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/mode-c_cpp.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/theme-one_dark.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ext-language_tools.js"></script>
+
+<div class="flex flex-col lg:flex-row h-[calc(100vh-80px)] overflow-hidden bg-[#0a0a0a] text-gray-300 font-sans">
+    
+    <div class="lg:w-[35%] h-full flex flex-col border-r border-white/5 bg-[#0f0f0f] overflow-y-auto custom-scrollbar">
+        <div class="p-5 border-b border-white/5 bg-black/40">
+            <div class="flex items-center gap-3 text-[10px] font-mono text-indigo-400 mb-3 tracking-widest uppercase">
+                <span class="animate-pulse">●</span> LIVE_SOURCE: 0x{{ course.id }}
+            </div>
+            <div class="relative w-full aspect-video bg-black rounded border border-white/10 overflow-hidden shadow-2xl">
+                <iframe id="main-video" src="https://www.youtube.com/embed/{{ course.video_id }}?rel=0" 
+                        class="absolute inset-0 w-full h-full" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <h1 class="mt-4 text-lg font-bold text-white uppercase italic tracking-tight">
+                {{ course.title }}<span class="text-indigo-500 text-xs ml-2">.cpp</span>
+            </h1>
+        </div>
+
+        <div class="p-6">
+            <h2 class="text-[10px] font-black text-gray-500 uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
+                <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                Documentation
+            </h2>
+            <div class="text-sm text-gray-400 leading-relaxed font-mono whitespace-pre-wrap">
+                {{ course.description|default:"No module documentation provided." }}
+            </div>
+        </div>
+    </div>
+
+    <aside class="lg:w-[65%] h-full flex flex-col relative bg-[#141414]">
+        <div class="flex bg-[#0a0a0a] h-10 border-b border-white/5 items-center justify-between px-4">
+            <div class="flex h-full">
+                <div class="flex items-center px-4 bg-[#141414] border-t-2 border-indigo-500 text-white text-[10px] font-bold gap-2 tracking-widest cursor-default">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" class="w-3.5 h-3.5" alt="cpp">
+                    main.cpp
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div id="loader" class="hidden w-3 h-3 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+                <button onclick="compileAndRun()" class="group flex items-center gap-2 px-4 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-[10px] font-black uppercase tracking-widest transition-all">
+                    BUILD & RUN <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="flex-1 relative">
+            <div id="editor" class="absolute inset-0"></div>
+        </div>
+
+        <div class="h-[35%] border-t border-white/10 bg-black flex flex-col overflow-hidden">
+            <div class="flex items-center px-4 py-2 bg-[#1a1a1a] text-[9px] font-bold text-gray-500 uppercase tracking-widest border-b border-white/5">
+                <span class="text-indigo-400">g++ v14.0.0 (Output)</span>
+                <div class="ml-auto flex items-center gap-2 text-green-500">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> SYSTEM_ONLINE
+                </div>
+            </div>
+            
+            <div id="terminal-screen" class="flex-1 p-4 font-mono text-[13px] overflow-y-auto custom-scrollbar selection:bg-indigo-500/30">
+                <div id="output-history" class="space-y-1">
+                    <div class="text-gray-600 italic">// Clang++ Compiler Initialized... ready to build.</div>
+                </div>
+                <div class="mt-2 flex items-center gap-2">
+                    <span class="text-indigo-500 font-bold">root@elite_cpp:~$</span>
+                    <input type="text" id="term-input" class="bg-transparent border-none outline-none text-white flex-1 font-mono p-0 focus:ring-0" placeholder="Type 'run' or './app'" autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+        <div class="h-6 bg-indigo-600 flex items-center justify-between px-4 text-[9px] font-black text-white uppercase tracking-widest">
+            <div class="flex gap-4">
+                <span id="file-status">main.cpp*</span>
+                <span id="error-count">0 Semantic Issues</span>
+            </div>
+            <div class="flex gap-4">
+                <span id="cursor-pos">Ln 1, Col 1</span>
+                <span>UTF-8</span>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<script>
+    let editor;
+    const storageKey = "cpp_code_{{ course.id }}";
+
+    // INITIALIZATION
+    document.addEventListener('DOMContentLoaded', function() {
+        editor = ace.edit("editor");
+        editor.setTheme("ace/theme/one_dark");
+        editor.session.setMode("ace/mode/c_cpp");
+        editor.setOptions({
+            enableBasicAutocompletion: true,
+            enableLiveAutocompletion: true,
+            showPrintMargin: false,
+            fontSize: "15px",
+            fontFamily: "'JetBrains Mono', monospace",
+            useSoftTabs: true,
+            tabSize: 4
+        });
+
+        const defaultCpp = `#include <iostream>\n\nint main() {\n    std::cout << "Hello C++ Architect!" << std::endl;\n    std::cout << "System is functional." << std::endl;\n    return 0;\n}`;
+        const saved = localStorage.getItem(storageKey);
+        editor.setValue(saved || `{{ course.initial_code|escapejs }}` || defaultCpp, -1);
+
+        editor.on('change', () => {
+            localStorage.setItem(storageKey, editor.getValue());
+            updateStatus();
+        });
+        editor.selection.on('changeCursor', updateStatus);
+
+        // Terminal Input Handling
+        document.getElementById('term-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const cmd = this.value.trim().toLowerCase();
+                logToTerminal(`<span class="text-indigo-400">root@elite_cpp:~$</span> ${cmd}`);
+                if (cmd === 'run' || cmd === './app') compileAndRun();
+                else if (cmd === 'clear') document.getElementById('output-history').innerHTML = '';
+                else if (cmd !== '') logToTerminal(`bash: command not found: ${cmd}`, "text-red-500");
+                this.value = '';
+            }
+        });
+    });
+
+    function logToTerminal(msg, color = "text-gray-300") {
+        const div = document.createElement('div');
+        div.className = `${color} leading-relaxed`;
+        div.innerHTML = msg;
+        const history = document.getElementById('output-history');
+        history.appendChild(div);
+        const screen = document.getElementById('terminal-screen');
+        screen.scrollTop = screen.scrollHeight;
+    }
+
+    function compileAndRun() {
+        const loader = document.getElementById('loader');
+        loader.classList.remove('hidden');
+        logToTerminal(`<span class="text-yellow-500 italic">Compiling main.cpp...</span>`);
+
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            const code = editor.getValue();
+            
+            // SIMULATED OUTPUT LOGIC
+            logToTerminal(`<span class="text-green-500">Compilation successful. Executing ./app...</span>`);
+            
+            // Improved Output Detection
+            const coutMatches = code.match(/std::cout\s*<<\s*"(.*?)"/g);
+            if (coutMatches) {
+                coutMatches.forEach(match => {
+                    const content = match.match(/"(.*?)"/)[1];
+                    logToTerminal(content, "text-white font-bold px-2 border-l-2 border-indigo-500 ml-2 mt-1");
+                });
+            } else if (code.includes('main()')) {
+                logToTerminal(`<span class="text-gray-500">[Process exited with code 0]</span>`);
+            } else {
+                logToTerminal(`linker error: main symbol not found`, "text-red-500");
+            }
+        }, 800);
+    }
+
+    function updateStatus() {
+        const pos = editor.getCursorPosition();
+        document.getElementById('cursor-pos').innerText = `Ln ${pos.row + 1}, Col ${pos.column + 1}`;
+    }
+</script>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #0a0a0a; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
+    .ace_editor { background-color: #141414 !important; }
+    .ace_gutter { background: #0f0f0f !important; color: #444 !important; }
+    #term-input:focus { box-shadow: none; outline: none; }
+</style>
+{% endblock %}

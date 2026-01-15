@@ -1,0 +1,114 @@
+{% extends 'platform/base.html' %}
+
+{% block content %}
+<div class="relative min-h-screen pb-40 overflow-hidden">
+    
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none z-0 mix-blend-screen animate-float"></div>
+
+    <section class="relative z-10 pt-32 pb-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-12">
+                
+                <div class="max-w-3xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="px-3 py-1 rounded bg-indigo-600/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-black uppercase tracking-[0.3em]">Dashboard_View</span>
+                        <span class="h-px w-20 bg-gradient-to-r from-indigo-500/50 to-transparent"></span>
+                    </div>
+                    <h1 class="text-7xl md:text-9xl font-black text-white italic uppercase tracking-tighter leading-[0.85] mb-8">
+                        Global <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 animate-gradient-x">Modules</span>
+                    </h1>
+                    <p class="text-lg text-gray-400 font-light max-w-2xl leading-relaxed border-l-2 border-indigo-500/30 pl-6">
+                        Select a neural interface below to begin synchronization. Each module contains video telemetry and raw source code artifacts.
+                    </p>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="p-6 glass-panel rounded-2xl min-w-[160px]">
+                        <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest mb-2">Total_Units</p>
+                        <p class="text-4xl font-mono font-bold text-white">{{ courses.count|stringformat:"02d" }}</p>
+                    </div>
+                    <div class="p-6 glass-panel rounded-2xl min-w-[160px] hidden lg:block">
+                        <p class="text-[10px] text-gray-500 font-black uppercase tracking-widest mb-2">Completion</p>
+                        <p class="text-4xl font-mono font-bold text-indigo-500">0%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="relative z-10 max-w-7xl mx-auto px-6">
+        
+        <div class="flex items-center gap-4 mb-12 overflow-x-auto pb-4 no-scrollbar">
+            <button class="px-6 py-2 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-full">All_Systems</button>
+            <button class="px-6 py-2 bg-white/5 hover:bg-white/10 text-gray-400 text-[10px] font-black uppercase tracking-widest rounded-full transition-all">Python_Core</button>
+            <button class="px-6 py-2 bg-white/5 hover:bg-white/10 text-gray-400 text-[10px] font-black uppercase tracking-widest rounded-full transition-all">Web_Stack</button>
+            <button class="px-6 py-2 bg-white/5 hover:bg-white/10 text-gray-400 text-[10px] font-black uppercase tracking-widest rounded-full transition-all">Algorithms</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for course in courses %}
+            <article class="group relative bg-[#080808] border border-white/5 rounded-3xl overflow-hidden hover:border-indigo-500/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-900/20">
+                
+                <div class="p-8 pb-0 relative z-10">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex flex-col">
+                            <span class="text-[9px] text-gray-600 font-mono uppercase tracking-widest mb-1">Language_ID</span>
+                            <span class="text-xs font-bold text-indigo-400 uppercase bg-indigo-500/10 px-2 py-1 rounded inline-block w-max border border-indigo-500/20">
+                                {{ course.get_language_display }}
+                            </span>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-indigo-600 transition-colors duration-500">
+                            <svg class="w-4 h-4 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-3xl font-black text-white italic uppercase tracking-tighter mb-4 leading-none group-hover:text-indigo-400 transition-colors">
+                        {{ course.title }}
+                    </h2>
+                </div>
+
+                <div class="p-8 pt-4 relative z-10">
+                    <p class="text-sm text-gray-500 leading-relaxed line-clamp-3 mb-8 font-light border-l border-white/10 pl-4">
+                        {{ course.description|default:"No description available for this unit. Proceed with caution." }}
+                    </p>
+                    
+                    <div class="flex items-center justify-between border-t border-white/5 pt-6">
+                        <span class="text-[10px] text-gray-600 font-mono">ID: #{{ course.id }}99-AZ</span>
+                        <span class="text-[10px] text-gray-600 font-mono">{{ course.created_at|date:"M d, Y" }}</span>
+                    </div>
+                </div>
+
+                <a href="{% url 'classroom' course.id %}" class="absolute inset-0 z-20"></a>
+                
+                <div class="absolute bottom-0 right-0 w-64 h-64 bg-indigo-600/5 blur-[80px] group-hover:bg-indigo-600/10 transition-all duration-500"></div>
+            </article>
+            
+            {% empty %}
+            <div class="col-span-full py-32 rounded-3xl border border-dashed border-white/10 flex flex-col items-center justify-center text-center">
+                <div class="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mb-6 animate-pulse">
+                    <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white uppercase tracking-widest mb-2">System_Void</h3>
+                <p class="text-sm text-gray-500 font-mono mb-8">No learning modules detected in local storage.</p>
+                <a href="/admin" class="px-8 py-3 bg-indigo-600 hover:bg-white hover:text-black text-white text-xs font-black uppercase tracking-widest rounded-lg transition-all">
+                    Initialize_Admin_Console
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+<style>
+    .animate-gradient-x {
+        background-size: 200% 200%;
+        animation: gradient 8s ease infinite;
+    }
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+</style>
+{% endblock %}
