@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@500;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --background: 255 255 255;
+    --foreground: 10 10 10;
+    --card: 255 255 255;
+    --muted: 245 245 245;
+  }
+
+  * {
+    @apply border-neutral-200;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-white font-body text-neutral-950 antialiased;
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    @apply font-body;
+  }
+
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']):not([type='hidden']),
+  select,
+  textarea {
+    @apply transition duration-200;
+  }
+
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']):not([type='hidden']):hover,
+  select:hover,
+  textarea:hover {
+    @apply border-neutral-950 bg-neutral-50;
+  }
+
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']):not([type='hidden']):focus,
+  select:focus,
+  textarea:focus {
+    @apply border-neutral-950 bg-white ring-2 ring-neutral-950/10;
+  }
+
+  ::selection {
+    @apply bg-neutral-950 text-white;
+  }
+}
+
+@layer components {
+  .container-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .glass-panel {
+    @apply rounded-2xl border border-neutral-200 bg-white/90 shadow-glass backdrop-blur-xl;
+  }
+
+  .surface-panel {
+    @apply rounded-2xl border border-neutral-200 bg-white shadow-soft;
+  }
+
+  .section-space {
+    @apply py-14 sm:py-20 lg:py-24;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.28em] text-neutral-500;
+  }
+}

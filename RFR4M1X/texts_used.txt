@@ -1,0 +1,83 @@
+admin.form.gender
+KA: სქესი
+
+common.continueShopping
+KA: შოპინგის გაგრძელება → გაგრძელება ყიდვის
+
+misc.selectGender
+KA: აირჩიე სქესი
+
+shop.gender
+KA: სქესი
+
+gender.men
+KA: მამაკაცის
+
+gender.women
+KA: ქალის
+
+gender.unisex
+KA: უნისექსი
+
+cart.emptyDescription
+KA: დაიწყე ერთი ძირითადი ნივთით და ააწყე სრული ლუქი მის გარშემო
+
+home.categoriesTitle
+KA: კატეგორიების მიხედვით არჩევა
+
+home.featuredTitle
+KA: ახლა მოთხოვნადია
+
+home.trendingTitle
+KA: ტრენდული ახლა
+
+home.newsletterTitle
+KA: მიიღე შეტყობინებები ახალი ნივთების შესახებ
+
+home.heroPrimary
+KA: კოლექციის დათვალიერება
+
+common.discover
+KA: დაათვალიერე
+
+common.learnMore
+KA: გაიგე მეტი → შეიტყვე მეტი
+
+common.loading
+KA: იტვირთება...
+
+common.empty
+KA: ჯერ არაფერი არის
+
+misc.checkoutFailed
+KA: შეკვეთის დასრულება ვერ მოხერხდა
+
+misc.saved
+KA: წარმატებით შენახულია
+
+misc.orderPlaced
+KA: შეკვეთა წარმატებით შესრულდა
+
+checkout.title
+KA: შეკვეთის გაფორმება
+
+checkout.description
+KA: შეიყვანე მიწოდების დეტალები, აირჩიე გადახდის მეთოდი და გადაამოწმე ინფორმაცია შეკვეთის დასრულებამდე
+
+checkout.placeOrder
+KA: შეკვეთის დასრულება
+
+cart.title
+KA: შენი კალათა
+
+wishlist.emptyTitle
+KA: სურვილების სია ცარიელია
+
+profile.noOrders
+KA: შეკვეთები ჯერ არ გაქვს
+
+nav.shop
+KA: მაღაზია
+
+nav.newArrivals
+KA: ახალი პროდუქტები
