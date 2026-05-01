@@ -5,7 +5,8 @@ type StorageKey =
   | 'demo-categories'
   | 'demo-orders'
   | 'demo-users'
-  | 'demo-session';
+  | 'demo-session'
+  | 'demo-catalog-version';
 
 const storageKeys: Record<StorageKey, string> = {
   'demo-products': 'alexandra-limited-collection-demo-products',
@@ -13,6 +14,7 @@ const storageKeys: Record<StorageKey, string> = {
   'demo-orders': 'alexandra-limited-collection-demo-orders',
   'demo-users': 'alexandra-limited-collection-demo-users',
   'demo-session': 'alexandra-limited-collection-demo-session',
+  'demo-catalog-version': 'alexandra-limited-collection-demo-catalog-version',
 };
 
 export const readStorage = <T>(key: StorageKey, fallback: T): T => {

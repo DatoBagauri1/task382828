@@ -50,10 +50,12 @@
     @apply transition duration-200;
   }
 
-  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']):not([type='hidden']):hover,
-  select:hover,
-  textarea:hover {
-    @apply border-neutral-950 bg-neutral-50;
+  @media (hover: hover) and (pointer: fine) {
+    input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']):not([type='hidden']):hover,
+    select:hover,
+    textarea:hover {
+      @apply border-neutral-950 bg-neutral-50;
+    }
   }
 
   input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']):not([type='hidden']):focus,

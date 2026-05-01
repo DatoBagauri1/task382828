@@ -34,7 +34,6 @@ export const Footer = () => {
             <Link to="/shop">{dictionary.nav.shop}</Link>
             <Link to="/wishlist">{dictionary.nav.wishlist}</Link>
             <Link to="/profile">{dictionary.nav.profile}</Link>
-            <Link to="/admin">{dictionary.nav.admin}</Link>
           </div>
         </div>
         <div className="space-y-3">
@@ -60,7 +59,7 @@ export const Footer = () => {
             href="https://instagram.com"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-neutral-600 transition hover:text-neutral-950"
+            className="inline-flex items-center gap-2 text-sm text-neutral-600 transition can-hover:hover:text-neutral-950"
           >
             <Camera className="h-4 w-4" />
             @alexandralimitedcollection

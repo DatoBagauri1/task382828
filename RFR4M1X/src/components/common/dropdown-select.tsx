@@ -66,13 +66,13 @@ export const DropdownSelect = ({
         aria-expanded={isOpen}
         aria-controls={`${id}-menu`}
         onClick={() => setIsOpen((current) => !current)}
-        className="group flex min-h-12 w-full items-center justify-between gap-3 rounded-full border border-neutral-300 bg-white px-4 py-2 text-left text-base font-semibold text-neutral-950 shadow-none transition duration-200 hover:-translate-y-0.5 hover:border-neutral-950 hover:bg-neutral-950 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/15 sm:gap-4 sm:text-sm"
+        className="group flex min-h-12 w-full items-center justify-between gap-3 rounded-full border border-neutral-300 bg-white px-4 py-2 text-left text-base font-semibold text-neutral-950 shadow-none transition duration-200 can-hover:hover:-translate-y-0.5 can-hover:hover:border-neutral-950 can-hover:hover:bg-neutral-950 can-hover:hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/15 sm:gap-4 sm:text-sm"
       >
         <span className="min-w-0 truncate">{selectedOption?.label}</span>
         <ChevronDown
           className={cn(
-            'h-4 w-4 shrink-0 text-neutral-500 transition duration-200 group-hover:text-white',
-            isOpen && 'rotate-180 text-neutral-950 group-hover:text-white',
+            'h-4 w-4 shrink-0 text-neutral-500 transition duration-200 can-hover:group-hover:text-white',
+            isOpen && 'rotate-180 text-neutral-950 can-hover:group-hover:text-white',
           )}
         />
       </button>
@@ -105,7 +105,7 @@ export const DropdownSelect = ({
                     'flex w-full items-center justify-between gap-3 rounded-[18px] px-4 py-3 text-left text-sm transition duration-200',
                     isSelected
                       ? 'bg-neutral-950 text-white'
-                      : 'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-950',
+                      : 'text-neutral-700 can-hover:hover:bg-neutral-100 can-hover:hover:text-neutral-950',
                   )}
                 >
                   <span className="min-w-0">

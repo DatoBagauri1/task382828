@@ -11,13 +11,13 @@ type ButtonProps = PropsWithChildren<
 
 const variantClass: Record<NonNullable<ButtonProps['variant']>, string> = {
   primary:
-    'bg-black text-white shadow-soft hover:bg-neutral-800',
+    'bg-black text-white shadow-soft can-hover:hover:bg-neutral-800',
   secondary:
-    'bg-white text-black ring-1 ring-neutral-300 hover:bg-neutral-100',
+    'bg-white text-black ring-1 ring-neutral-300 can-hover:hover:bg-neutral-100',
   ghost:
-    'bg-transparent text-black ring-1 ring-neutral-300 hover:bg-neutral-100',
+    'bg-transparent text-black ring-1 ring-neutral-300 can-hover:hover:bg-neutral-100',
   danger:
-    'bg-neutral-900 text-white hover:bg-black',
+    'bg-neutral-900 text-white can-hover:hover:bg-black',
 };
 
 const sizeClass: Record<NonNullable<ButtonProps['size']>, string> = {
@@ -37,7 +37,7 @@ export const Button = ({
   <button
     type={type}
     className={cn(
-      'inline-flex items-center justify-center rounded-full text-center font-semibold leading-tight transition duration-300 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0',
+      'inline-flex items-center justify-center rounded-full text-center font-semibold leading-tight transition duration-300 can-hover:hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:can-hover:hover:translate-y-0',
       variantClass[variant],
       sizeClass[size],
       className,

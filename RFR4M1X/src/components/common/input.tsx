@@ -4,7 +4,7 @@ import { forwardRef, type InputHTMLAttributes, type SelectHTMLAttributes, type T
 import { cn } from '@/utils/cn';
 
 export const inputClass =
-  'w-full rounded-full border border-neutral-300 bg-white px-4 text-base text-neutral-950 outline-none transition duration-200 placeholder:text-neutral-400 hover:border-neutral-950 hover:bg-neutral-50 focus:border-neutral-950 focus:bg-white focus:ring-2 focus:ring-neutral-950/10 sm:text-sm';
+  'w-full rounded-full border border-neutral-300 bg-white px-4 text-base text-neutral-950 outline-none transition duration-200 placeholder:text-neutral-400 can-hover:hover:border-neutral-950 can-hover:hover:bg-neutral-50 focus:border-neutral-950 focus:bg-white focus:ring-2 focus:ring-neutral-950/10 sm:text-sm';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
@@ -36,7 +36,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       </select>
       <ChevronDown
         aria-hidden="true"
-        className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500 transition duration-200 group-hover:text-neutral-950 peer-focus:rotate-180 peer-focus:text-neutral-950"
+        className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500 transition duration-200 can-hover:group-hover:text-neutral-950 peer-focus:rotate-180 peer-focus:text-neutral-950"
       />
     </div>
   ),

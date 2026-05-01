@@ -44,7 +44,7 @@ export const CartDrawer = () => {
               <button
                 type="button"
                 onClick={() => setCartOpen(false)}
-                className="rounded-full p-3 ring-1 ring-black/10 transition hover:bg-black/5"
+                className="rounded-full p-3 ring-1 ring-black/10 transition can-hover:hover:bg-black/5"
                 aria-label={dictionary.common.close}
               >
                 <ArrowRight className="h-5 w-5" />
@@ -73,7 +73,7 @@ export const CartDrawer = () => {
                         <button
                           type="button"
                           onClick={() => removeItem(item.id)}
-                          className="rounded-full p-2 transition hover:bg-black/5"
+                          className="rounded-full p-2 transition can-hover:hover:bg-black/5"
                           aria-label={dictionary.common.delete}
                         >
                           <Trash2 className="h-4 w-4" />

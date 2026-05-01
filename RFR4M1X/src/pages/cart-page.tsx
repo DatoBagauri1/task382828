@@ -5,6 +5,7 @@ import { Button } from '@/components/common/button';
 import { EmptyState } from '@/components/common/empty-state';
 import { SEO } from '@/components/common/seo';
 import { useLocale, useTranslation } from '@/hooks/use-translation';
+import { useCommerceStore } from '@/store/commerce-store';
 import { useCartStore } from '@/store/cart-store';
 import { formatCurrency, getLocalizedText } from '@/utils/format';
 
@@ -14,10 +15,16 @@ export const CartPage = () => {
   const items = useCartStore((state) => state.items);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
+  const categories = useCommerceStore((state) => state.categories);
 
   const subtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   const deliveryFee = subtotal >= 300 || subtotal === 0 ? 0 : 15;
   const total = subtotal + deliveryFee;
+  const getCategoryLabel = (categorySlug: string) => {
+    const category = categories.find((entry) => entry.slug === categorySlug);
+
+    return category ? getLocalizedText(category.name, locale) : categorySlug.replace(/-/g, ' ');
+  };
 
   return (
     <>
@@ -47,7 +54,7 @@ export const CartPage = () => {
                     <div className="flex flex-col justify-between gap-3 sm:flex-row">
                       <div>
                         <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">
-                          {item.product.category}
+                          {getCategoryLabel(item.product.category)}
                         </p>
                         <h2 className="mt-2 break-words font-heading text-xl font-bold leading-tight sm:text-2xl">
                           {getLocalizedText(item.product.name, locale)}
@@ -59,7 +66,7 @@ export const CartPage = () => {
                       <button
                         type="button"
                         onClick={() => removeItem(item.id)}
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-full ring-1 ring-black/10 transition hover:bg-black/5"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-full ring-1 ring-black/10 transition can-hover:hover:bg-black/5"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>

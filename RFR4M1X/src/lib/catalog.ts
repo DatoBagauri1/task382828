@@ -285,7 +285,7 @@ const categorySeeds: CategorySeed[] = [
           ka: 'დაგრძელებული მკლავებით და ბოქსი ფორმით, რომელიც მაინც მარტივად ჩასაცმელია.',
         },
         material: { en: '280gsm combed cotton jersey', ka: '280gsm დავარცხნილი ბამბის ჯერსი' },
-        care: { en: 'Cold wash, line dry, warm iron if needed.', ka: 'გარეცხე ცივად, გააშრე ჰაერზე, საჭიროების შემთხვევაში ოდნავ გააუთავე.' },
+        care: { en: 'Cold wash, line dry, warm iron if needed.', ka: 'გარეცხე ცივად, გააშრე ჰაერზე, საჭიროების შემთხვევაში ოდნავ გააუთოე.' },
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
         colors: ['Black', 'Bone', 'Sage'],
         stock: 18,
@@ -318,7 +318,7 @@ const categorySeeds: CategorySeed[] = [
         oldPrice: null,
         detail: {
           en: 'minimal chest branding and softened shoulders for a clean everyday look.',
-          ka: 'მინიმალური გულმკერდის ბრენდირებით და დარბილებული მხრებით სუფთა ყოველდღიური იერისთვის.',
+          ka: 'მინიმალური გულმკერდის ბრენდირებით და რბილი მხრის ხაზით სუფთა ყოველდღიური იერისთვის.',
         },
         material: { en: 'Soft-touch cotton jersey', ka: 'რბილი შეხების ბამბის ჯერსი' },
         care: { en: 'Machine wash cold and dry in shade.', ka: 'გარეცხე ცივად და გააშრე ჩრდილში.' },
@@ -421,7 +421,7 @@ const categorySeeds: CategorySeed[] = [
         oldPrice: null,
         detail: {
           en: 'extra room through the thigh with a clean taper that works with simple sneakers.',
-          ka: 'მეტი სივრცით ბარძაყზე და სუფთა შევიწროებით, რომელიც მარტივ სნიკერებს კარგად ერწყმის.',
+          ka: 'ბარძაყის არეში მეტი სივრცით და სუფთა შევიწროებით, რომელიც მარტივ სნიკერებს კარგად ერწყმის.',
         },
         material: { en: 'Stretch comfort denim', ka: 'კომფორტული გაწელვადი დენიმი' },
         care: { en: 'Wash with dark colors and hang dry.', ka: 'გარეცხე მუქ ფერებთან ერთად და გააშრე ჰაერზე.' },
@@ -506,7 +506,7 @@ const categorySeeds: CategorySeed[] = [
         oldPrice: 289,
         detail: {
           en: 'a crisp snap front, easy drape, and subtle sheen that sharpens casual styling.',
-          ka: 'მკვეთრი ღილ-კაპსონიანი წინა ნაწილი, მარტივი დაცემა და მსუბუქი ბზინვარება, რომელიც ყოველდღიურ სტილს აწმენდს.',
+          ka: 'მკვეთრი ღილებიანი წინა ნაწილი, მარტივი დაცემა და მსუბუქი ბზინვარება, რომელიც ყოველდღიურ სტილს უფრო დახვეწილს ხდის.',
         },
         material: { en: 'Water-resistant nylon', ka: 'წყალგამძლე ნეილონი' },
         care: { en: 'Cold wash and air dry only.', ka: 'გარეცხე ცივად და გააშრე მხოლოდ ჰაერზე.' },
@@ -560,7 +560,7 @@ const categorySeeds: CategorySeed[] = [
         oldPrice: 339,
         detail: {
           en: 'functional pockets, cleaner seams, and enough structure to elevate daily dressing.',
-          ka: 'ფუნქციური ჯიბეებით, სუფთა ნაკერებით და საკმარისი სტრუქტურით, რომ ყოველდღიური ჩაცმა უფრო მაღალი დონის გახდეს.',
+          ka: 'ფუნქციური ჯიბეებით, სუფთა ნაკერებით და საკმარისი სტრუქტურით, რომ ყოველდღიური ჩაცმა უფრო დახვეწილი გახდეს.',
         },
         material: { en: 'Cotton canvas with soft lining', ka: 'ბამბის კანვასი რბილი სარჩულით' },
         care: { en: 'Wash cold and remove hardware before cleaning.', ka: 'გარეცხე ცივად და გაწმენდამდე მოხსენი დამატებითი აქსესუარები.' },
@@ -694,7 +694,7 @@ const categorySeeds: CategorySeed[] = [
         oldPrice: 149,
         detail: {
           en: 'utility pockets and a neat hem that keep the shape clean rather than bulky.',
-          ka: 'ფუნქციური ჯიბეებით და სუფთა ბოლოს ხაზით, რაც ფორმას მძიმის ნაცვლად მოწესრიგებულს ტოვებს.',
+          ka: 'ფუნქციური ჯიბეებით და სუფთა დაბოლოებით, რაც ფორმას დამძიმების ნაცვლად მოწესრიგებულს ტოვებს.',
         },
         material: { en: 'Cotton ripstop', ka: 'ბამბის ripstop' },
         care: { en: 'Cold wash and reshape while damp.', ka: 'გარეცხე ცივად და სველ მდგომარეობაში მიეცი ფორმა.' },
@@ -748,7 +748,7 @@ const categorySeeds: CategorySeed[] = [
         oldPrice: 129,
         detail: {
           en: 'soft fleece handfeel and a sturdy waistband that keeps loungewear looking sharp.',
-          ka: 'რბილი ფლისის შეგრძნებით და მყარი წელის ხაზით, რომელიც loungewear-ს უფრო შეკრულს აჩენს.',
+          ka: 'რბილი ფლისის შეგრძნებით და მყარი წელის ხაზით, რომელიც სახლის სტილს უფრო მოწესრიგებულს აჩენს.',
         },
         material: { en: 'Brushed cotton fleece', ka: 'დავარცხნილი ბამბის ფლისი' },
         care: { en: 'Machine wash cold and line dry.', ka: 'გარეცხე ცივად და გააშრე ჰაერზე.' },
@@ -797,7 +797,7 @@ const categorySeeds: CategorySeed[] = [
         oldPrice: null,
         detail: {
           en: 'bias-cut movement and slim straps that create a clean, evening-ready line.',
-          ka: 'bias-cut დაცემით და წვრილი სამხრეებით, რომლებიც სუფთა, საღამოსთვის მზა ხაზს ქმნის.',
+          ka: 'დახრილი ჭრის დაცემით და წვრილი სამხრეებით, რომლებიც სუფთა, საღამოსთვის მზა ხაზს ქმნის.',
         },
         material: { en: 'Satin viscose blend', ka: 'ატლასისებრი ვისკოზის ნაზავი' },
         care: { en: 'Dry clean only.', ka: 'მხოლოდ ქიმწმენდა.' },
@@ -974,7 +974,7 @@ const categorySeeds: CategorySeed[] = [
           en: 'clean hardware and a slim profile that works across dresses, denim, and tailoring.',
           ka: 'სუფთა მეტალის დეტალებით და თხელი პროფილით, რომელიც კაბებს, დენიმსა და თარგიან შარვლებს ერთნაირად უხდება.',
         },
-        material: { en: 'Full-grain leather', ka: 'სრული მარცვლის ტყავი' },
+        material: { en: 'Full-grain leather', ka: 'მაღალი ხარისხის ტყავი' },
         care: { en: 'Wipe clean and condition occasionally.', ka: 'გაწმინდე ნესტიანი ტილოთი და პერიოდულად დაამუშავე კონდიციონერით.' },
         sizes: ['S', 'M', 'L'],
         colors: ['Black', 'Brown', 'Sand'],
@@ -1005,7 +1005,7 @@ const categorySeeds: CategorySeed[] = [
           en: 'clean panels, smooth leather, and a cushioned sole for all-day wear.',
           ka: 'სუფთა პანელებით, გლუვი ტყავით და რბილი ძირით, რომელიც მთელი დღის კომფორტს ინარჩუნებს.',
         },
-        material: { en: 'Full-grain leather upper', ka: 'სრული მარცვლის ტყავის ზედაპირი' },
+        material: { en: 'Full-grain leather upper', ka: 'მაღალი ხარისხის ტყავის ზედაპირი' },
         care: { en: 'Wipe clean and use leather protector.', ka: 'გაწმინდე ნესტიანი ტილოთი და გამოიყენე ტყავის დამცავი საშუალება.' },
         sizes: ['39', '40', '41', '42', '43', '44'],
         colors: ['White', 'Black', 'Sand'],
@@ -1057,7 +1057,7 @@ const categorySeeds: CategorySeed[] = [
         oldPrice: 179,
         detail: {
           en: 'tonal branding, a shaped footbed, and a comfortable lounge feel.',
-          ka: 'ტონალური ბრენდირებით, გამოყვანილი საფეხურით და კომფორტული დასასვენებელი შეგრძნებით.',
+          ka: 'ტონალური ბრენდირებით, ანატომიური ძირით და კომფორტული დასასვენებელი შეგრძნებით.',
         },
         material: { en: 'Molded EVA with soft strap', ka: 'ჩამოსხმული EVA რბილი სამაგრით' },
         care: { en: 'Rinse clean and dry in shade.', ka: 'გაწმინდე წყლით და გააშრე ჩრდილში.' },
@@ -1121,7 +1121,7 @@ const buildProduct = (category: CategorySeed, variant: VariantSeed, index: numbe
     oldPrice: variant.oldPrice,
     description: {
       en: `${line.title.en} ${variant.label.en} is ${line.tagline.en} Details include ${variant.detail.en}`,
-      ka: `${line.title.ka} ${variant.label.ka} ${line.tagline.ka} დეტალები: ${variant.detail.ka}`,
+      ka: `${line.title.ka} ${variant.label.ka} ${line.tagline.ka} გამოირჩევა ${variant.detail.ka}`,
     },
     material: variant.material,
     careInstructions: variant.care,
@@ -1202,14 +1202,14 @@ export const reviewTemplates: Review[] = [
     title: { en: 'Good fit and feel', ka: 'კარგი თარგი და შეგრძნება' },
     body: {
       en: 'The fabric feels solid, the silhouette sits well, and the finishing is clean all around.',
-      ka: 'ქსოვილი ხარისხიანად იგრძნობა, სილუეტი კარგად ჯდება და დასრულება ყველა მხრიდან სუფთაა.',
+      ka: 'ქსოვილი შეხებით ხარისხიანია, სილუეტი კარგად ჯდება და დასრულება ყველა მხრიდან სუფთაა.',
     },
   },
   {
     id: 'rev-2',
     author: 'Alex',
     rating: 5,
-    title: { en: 'Better in person', ka: 'რეალობაში უფრო კარგია' },
+    title: { en: 'Better in person', ka: 'რეალურად უკეთესია' },
     body: {
       en: 'I styled it a few different ways and it still felt easy to wear.',
       ka: 'რამდენიმე განსხვავებულად ჩავიცვი და მაინც მარტივად სატარებელი დარჩა.',
@@ -1222,7 +1222,7 @@ export const reviewTemplates: Review[] = [
     title: { en: 'Strong details', ka: 'ძლიერი დეტალები' },
     body: {
       en: 'The proportions and materials are what stand out most. It feels carefully designed.',
-      ka: 'ყველაზე მეტად პროპორციები და მასალა გამოირჩევა. აშკარად გააზრებულ დიზაინს ჰგავს.',
+      ka: 'ყველაზე მეტად პროპორციები და მასალები გამოირჩევა. აშკარად გააზრებული დიზაინია.',
     },
   },
 ];

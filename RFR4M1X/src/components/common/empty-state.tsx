@@ -25,7 +25,7 @@ export const EmptyState = ({
     {actionHref && actionLabel ? (
       <Link
         to={actionHref}
-        className="inline-flex min-h-11 items-center justify-center rounded-full bg-black px-5 py-2 text-center text-sm font-semibold leading-tight text-white transition hover:bg-neutral-800"
+        className="inline-flex min-h-11 items-center justify-center rounded-full bg-black px-5 py-2 text-center text-sm font-semibold leading-tight text-white transition can-hover:hover:bg-neutral-800"
       >
         {actionLabel}
       </Link>

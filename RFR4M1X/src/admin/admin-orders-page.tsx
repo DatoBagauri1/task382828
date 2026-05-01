@@ -135,7 +135,7 @@ export const AdminOrdersPage = () => {
                   <img
                     src={order.receiptImage}
                     alt={dictionary.checkout.receiptPreview}
-                    className="h-48 w-full object-cover transition duration-500 group-hover:scale-105"
+                    className="h-48 w-full object-cover transition duration-500 can-hover:group-hover:scale-105"
                   />
                   <span className="flex items-center justify-between gap-3 border-t border-black/5 px-4 py-3 font-semibold">
                     {dictionary.checkout.receiptPreview}

@@ -25,7 +25,7 @@ const filterPillClass = (isActive: boolean) =>
   `rounded-full px-3.5 py-2 text-sm ring-1 transition duration-200 sm:px-4 ${
     isActive
       ? 'bg-ink text-white ring-ink shadow-soft'
-      : 'ring-black/10 hover:-translate-y-0.5 hover:bg-neutral-950 hover:text-white hover:ring-neutral-950'
+      : 'ring-black/10 can-hover:hover:-translate-y-0.5 can-hover:hover:bg-neutral-950 can-hover:hover:text-white can-hover:hover:ring-neutral-950'
   }`;
 
 export const ShopPage = () => {

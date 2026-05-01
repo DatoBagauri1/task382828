@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/common/button';
 import { SEO } from '@/components/common/seo';
-import { useLocale, useTranslation } from '@/hooks/use-translation';
+import { useTranslation } from '@/hooks/use-translation';
 import { useAuthStore } from '@/store/auth-store';
 
 const signInSchema = z.object({
@@ -24,14 +24,12 @@ type SignUpValues = z.infer<typeof signUpSchema>;
 
 export const AuthPage = () => {
   const dictionary = useTranslation();
-  const locale = useLocale();
   const navigate = useNavigate();
   const location = useLocation();
   const signIn = useAuthStore((state) => state.signIn);
   const signUp = useAuthStore((state) => state.signUp);
   const profile = useAuthStore((state) => state.profile);
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
-  const customerLabel = locale === 'ka' ? 'მომხმარებელი' : 'Customer';
 
   const signInForm = useForm<SignInValues>({
     resolver: zodResolver(signInSchema),
@@ -148,12 +146,6 @@ export const AuthPage = () => {
               </form>
             )}
 
-            <div className="mt-6 rounded-[20px] bg-black/5 p-4 text-sm leading-7 text-neutral-600 sm:mt-8 sm:rounded-[24px] sm:p-5">
-              <p className="font-semibold">{dictionary.misc.demoAccounts}</p>
-              <p className="mt-2">{dictionary.auth.helper}</p>
-              <p className="mt-3">{dictionary.common.admin}: `admin@alexandralimitedcollection.com` / `Admin123!`</p>
-              <p>{customerLabel}: `hello@alexandralimitedcollection.com` / `Shopper123!`</p>
-            </div>
           </div>
         </div>
       </div>

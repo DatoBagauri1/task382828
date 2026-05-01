@@ -1,8 +1,6 @@
 ﻿import { useEffect } from 'react';
-import toast from 'react-hot-toast';
 
 import { Badge } from '@/components/common/badge';
-import { Button } from '@/components/common/button';
 import { SectionHeading } from '@/components/common/section-heading';
 import { useLocale, useTranslation } from '@/hooks/use-translation';
 import { getDashboardStats, useCommerceStore } from '@/store/commerce-store';
@@ -14,7 +12,6 @@ export const AdminDashboardPage = () => {
   const products = useCommerceStore((state) => state.products);
   const orders = useCommerceStore((state) => state.orders);
   const loadOrders = useCommerceStore((state) => state.loadOrders);
-  const seedCatalog = useCommerceStore((state) => state.seedCatalog);
   const backendMode = useCommerceStore((state) => state.backendMode);
 
   useEffect(() => {
@@ -29,21 +26,6 @@ export const AdminDashboardPage = () => {
         eyebrow={backendMode === 'supabase' ? dictionary.misc.supabaseBadge : dictionary.misc.demoBadge}
         title={dictionary.admin.overview}
         description={dictionary.admin.seedHint}
-        action={
-          <Button
-            variant="secondary"
-            onClick={async () => {
-              try {
-                await seedCatalog();
-                toast.success(dictionary.misc.seeded);
-              } catch (error) {
-                toast.error(error instanceof Error ? error.message : dictionary.misc.seedFailed);
-              }
-            }}
-          >
-            {dictionary.admin.seedCatalog}
-          </Button>
-        }
       />
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 xl:gap-6">

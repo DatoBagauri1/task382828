@@ -1,6 +1,5 @@
 import type { User } from '@supabase/supabase-js';
 
-import { demoCategories, demoProducts } from '@/lib/catalog';
 import { getBankTransferAccount } from '@/lib/payments';
 import { createId, readStorage, removeStorage, writeStorage } from '@/lib/storage';
 import { isSupabaseConfigured, supabase } from '@/lib/supabase';
@@ -27,20 +26,9 @@ const productGenders: ProductGender[] = ['women', 'men', 'unisex'];
 const isProductGender = (value: unknown): value is ProductGender =>
   productGenders.includes(value as ProductGender);
 
-const getBundledProductGender = (product: Product) =>
-  demoProducts.find((entry) => entry.id === product.id || entry.slug === product.slug)?.gender;
-
 const inferProductGender = (product: Product, providedGender: unknown): ProductGender => {
-  const bundledGender = getBundledProductGender(product);
-
   if (!isProductGender(providedGender)) {
-    return bundledGender ?? (product.category === 'dresses' ? 'women' : 'unisex');
-  }
-
-  // Existing Supabase/demo rows may have the migration default even when the bundled catalog has
-  // a more precise value. Prefer the bundled value for known products so filters work immediately.
-  if (providedGender === 'unisex' && bundledGender && bundledGender !== 'unisex') {
-    return bundledGender;
+    return product.category === 'dresses' ? 'women' : 'unisex';
   }
 
   return providedGender;
@@ -70,94 +58,25 @@ const demoAccounts: DemoUserRecord[] = [
   },
 ];
 
-const createStarterOrders = (): Order[] => {
-  const first = demoProducts[0];
-  const second = demoProducts[6];
-  const third = demoProducts[22];
-
-  return [
-    {
-      id: 'starter-order-1',
-      userId: 'demo-customer',
-      customerName: 'Nika Beridze',
-      email: 'hello@alexandralimitedcollection.com',
-      phone: '+995 555 11 22 33',
-      address: 'Rustaveli Ave 18',
-      city: 'Tbilisi',
-      paymentMethod: 'cash_on_delivery',
-      bankAccount: null,
-      receiptImage: null,
-      subtotal: first.price + second.price,
-      deliveryFee: 15,
-      total: first.price + second.price + 15,
-      status: 'confirmed',
-      createdAt: new Date('2026-04-20').toISOString(),
-      items: [
-        {
-          id: 'starter-order-1-item-1',
-          orderId: 'starter-order-1',
-          productId: first.id,
-          productName: first.name,
-          price: first.price,
-          size: first.sizes[2] ?? first.sizes[0],
-          color: first.colors[0] ?? 'Black',
-          quantity: 1,
-          image: first.images[0] ?? '',
-        },
-        {
-          id: 'starter-order-1-item-2',
-          orderId: 'starter-order-1',
-          productId: second.id,
-          productName: second.name,
-          price: second.price,
-          size: second.sizes[1] ?? second.sizes[0],
-          color: second.colors[1] ?? second.colors[0] ?? 'White',
-          quantity: 1,
-          image: second.images[0] ?? '',
-        },
-      ],
-    },
-    {
-      id: 'starter-order-2',
-      userId: 'demo-admin',
-      customerName: 'ALEXANDRA LIMITED COLLECTION Admin',
-      email: 'admin@alexandralimitedcollection.com',
-      phone: '+995 555 44 55 66',
-      address: 'M. Kostava 12',
-      city: 'Tbilisi',
-      paymentMethod: 'tbc_transfer',
-      bankAccount: getBankTransferAccount('tbc_transfer')?.account ?? null,
-      receiptImage: null,
-      subtotal: third.price * 2,
-      deliveryFee: 0,
-      total: third.price * 2,
-      status: 'shipped',
-      createdAt: new Date('2026-04-18').toISOString(),
-      items: [
-        {
-          id: 'starter-order-2-item-1',
-          orderId: 'starter-order-2',
-          productId: third.id,
-          productName: third.name,
-          price: third.price,
-          size: third.sizes[1] ?? third.sizes[0],
-          color: third.colors[0] ?? 'Blue',
-          quantity: 2,
-          image: third.images[0] ?? '',
-        },
-      ],
-    },
-  ];
-};
-
 const ensureDemoBootstrap = () => {
-  const products = readStorage<Product[]>('demo-products', []);
-  const categories = readStorage<Category[]>('demo-categories', []);
+  const catalogVersion = readStorage<string>('demo-catalog-version', '');
+  let products = readStorage<Product[]>('demo-products', []);
+  let categories = readStorage<Category[]>('demo-categories', []);
   const users = readStorage<DemoUserRecord[]>('demo-users', []);
-  const orders = readStorage<Order[]>('demo-orders', []);
+  let orders = readStorage<Order[]>('demo-orders', []);
+
+  if (catalogVersion !== 'empty-production-catalog-v1') {
+    products = [];
+    categories = [];
+    orders = [];
+    writeStorage('demo-products', []);
+    writeStorage('demo-categories', []);
+    writeStorage('demo-orders', []);
+    writeStorage('demo-catalog-version', 'empty-production-catalog-v1');
+  }
 
   if (!products.length) {
-    writeStorage('demo-products', demoProducts);
+    writeStorage('demo-products', []);
   } else {
     const normalizedProducts = products.map(normalizeProduct);
     if (normalizedProducts.some((product, index) => product.gender !== products[index]?.gender)) {
@@ -165,13 +84,13 @@ const ensureDemoBootstrap = () => {
     }
   }
   if (!categories.length) {
-    writeStorage('demo-categories', demoCategories);
+    writeStorage('demo-categories', []);
   }
   if (!users.length) {
     writeStorage('demo-users', demoAccounts);
   }
   if (!orders.length) {
-    writeStorage('demo-orders', createStarterOrders());
+    writeStorage('demo-orders', []);
   }
 };
 
@@ -527,8 +446,8 @@ export const fetchCatalog = async (): Promise<{
     await sleep(450);
     return {
       mode: 'demo',
-      categories: readStorage('demo-categories', demoCategories),
-      products: readStorage<Product[]>('demo-products', demoProducts).map(normalizeProduct),
+      categories: readStorage<Category[]>('demo-categories', []),
+      products: readStorage<Product[]>('demo-products', []).map(normalizeProduct),
     };
   }
 
@@ -549,20 +468,14 @@ export const fetchCatalog = async (): Promise<{
 
     return {
       mode: 'supabase',
-      categories:
-        categoryRows && categoryRows.length
-          ? categoryRows.map((row) => mapCategoryRow(row as Record<string, unknown>))
-          : demoCategories,
-      products:
-        productRows && productRows.length
-          ? productRows.map((row) => mapProductRow(row as Record<string, unknown>))
-          : demoProducts.map(normalizeProduct),
+      categories: (categoryRows ?? []).map((row) => mapCategoryRow(row as Record<string, unknown>)),
+      products: (productRows ?? []).map((row) => mapProductRow(row as Record<string, unknown>)),
     };
   } catch {
     return {
       mode: 'supabase',
-      categories: demoCategories,
-      products: demoProducts.map(normalizeProduct),
+      categories: [],
+      products: [],
     };
   }
 };
@@ -574,7 +487,7 @@ export const fetchOrders = async (
   if (!isSupabaseConfigured) {
     ensureDemoBootstrap();
     await sleep(250);
-    const orders = readStorage<Order[]>('demo-orders', createStarterOrders());
+    const orders = readStorage<Order[]>('demo-orders', []);
     return isAdmin || !userId ? orders : orders.filter((order) => order.userId === userId);
   }
 
@@ -638,7 +551,7 @@ export const createOrder = async (payload: {
 
   if (!isSupabaseConfigured) {
     ensureDemoBootstrap();
-    const orders = readStorage<Order[]>('demo-orders', createStarterOrders());
+    const orders = readStorage<Order[]>('demo-orders', []);
     writeStorage('demo-orders', [order, ...orders]);
     return order;
   }
@@ -690,7 +603,7 @@ export const createOrder = async (payload: {
 export const saveProduct = async (product: Product) => {
   if (!isSupabaseConfigured) {
     ensureDemoBootstrap();
-    const products = readStorage<Product[]>('demo-products', demoProducts);
+    const products = readStorage<Product[]>('demo-products', []);
     const next = [...products.filter((entry) => entry.id !== product.id), normalizeProduct(product)].sort((a, b) =>
       b.createdAt.localeCompare(a.createdAt),
     );
@@ -710,7 +623,7 @@ export const saveProduct = async (product: Product) => {
 export const deleteProduct = async (productId: string) => {
   if (!isSupabaseConfigured) {
     ensureDemoBootstrap();
-    const products = readStorage<Product[]>('demo-products', demoProducts).filter(
+    const products = readStorage<Product[]>('demo-products', []).filter(
       (product) => product.id !== productId,
     );
     writeStorage('demo-products', products);
@@ -727,7 +640,7 @@ export const deleteProduct = async (productId: string) => {
 export const saveCategory = async (category: Category) => {
   if (!isSupabaseConfigured) {
     ensureDemoBootstrap();
-    const categories = readStorage<Category[]>('demo-categories', demoCategories);
+    const categories = readStorage<Category[]>('demo-categories', []);
     const next = [...categories.filter((entry) => entry.slug !== category.slug), category].sort((a, b) =>
       a.slug.localeCompare(b.slug),
     );
@@ -747,11 +660,11 @@ export const saveCategory = async (category: Category) => {
 export const deleteCategory = async (slug: string) => {
   if (!isSupabaseConfigured) {
     ensureDemoBootstrap();
-    const products = readStorage<Product[]>('demo-products', demoProducts);
+    const products = readStorage<Product[]>('demo-products', []);
     if (products.some((product) => product.category === slug)) {
       throw new Error('Remove or move products in this category before deleting it.');
     }
-    const categories = readStorage<Category[]>('demo-categories', demoCategories).filter(
+    const categories = readStorage<Category[]>('demo-categories', []).filter(
       (category) => category.slug !== slug,
     );
     writeStorage('demo-categories', categories);
@@ -773,7 +686,7 @@ export const deleteCategory = async (slug: string) => {
 export const updateOrderStatus = async (orderId: string, status: OrderStatus) => {
   if (!isSupabaseConfigured) {
     ensureDemoBootstrap();
-    const orders = readStorage<Order[]>('demo-orders', createStarterOrders()).map((order) =>
+    const orders = readStorage<Order[]>('demo-orders', []).map((order) =>
       order.id === orderId ? { ...order, status } : order,
     );
     writeStorage('demo-orders', orders);
@@ -784,27 +697,5 @@ export const updateOrderStatus = async (orderId: string, status: OrderStatus) =>
   const { error } = await client.from('orders').update({ status }).eq('id', orderId);
   if (error) {
     throw error;
-  }
-};
-
-export const seedBundledCatalog = async () => {
-  if (!isSupabaseConfigured) {
-    ensureDemoBootstrap();
-    return;
-  }
-
-  const client = ensureSupabase();
-  const { error: categoryError } = await client
-    .from('categories')
-    .upsert(demoCategories.map(categoryToRow));
-  if (categoryError) {
-    throw categoryError;
-  }
-
-  const { error: productError } = await client
-    .from('products')
-    .upsert(demoProducts.map(productToRow));
-  if (productError) {
-    throw productError;
   }
 };

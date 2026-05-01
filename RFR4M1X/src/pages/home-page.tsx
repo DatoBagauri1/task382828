@@ -114,107 +114,115 @@ export const HomePage = () => {
         </div>
       </section>
 
-      <section className="section-space">
-        <div className="container-shell">
-          <SectionHeading
-            eyebrow={dictionary.common.featured}
-            title={dictionary.home.featuredTitle}
-            description={dictionary.home.featuredDescription}
-            action={
-              <Link to="/shop">
-                <Button variant="ghost">{dictionary.common.viewAll}</Button>
-              </Link>
-            }
-          />
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} onQuickView={setQuickViewProduct} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-space pt-0">
-        <div className="container-shell">
-          <SectionHeading
-            eyebrow={dictionary.common.discover}
-            title={dictionary.home.categoriesTitle}
-            description={dictionary.home.categoriesDescription}
-          />
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {categories.map((category) => (
-              <Link
-                key={category.slug}
-                to={`/shop?category=${category.slug}`}
-                className="group overflow-hidden rounded-[32px] bg-black/5"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    src={category.image}
-                    alt={getLocalizedText(category.name, locale)}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/55 via-neutral-950/5 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-4 text-white sm:p-6">
-                    <div className="flex items-center justify-between gap-4">
-                      <div>
-                        <h3 className="font-heading text-2xl font-bold leading-tight sm:text-3xl">
-                          {getLocalizedText(category.name, locale)}
-                        </h3>
-                        <p className="mt-2 max-w-sm text-sm leading-7 text-white/80">
-                          {getLocalizedText(category.description, locale)}
-                        </p>
-                      </div>
-                      <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-space pt-0">
-        <div className="container-shell">
-          <SectionHeading
-            eyebrow={dictionary.common.popular}
-            title={dictionary.home.trendingTitle}
-            description={dictionary.home.trendingDescription}
-          />
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-            {trendingProducts.slice(0, 4).map((product) => (
-              <ProductCard key={product.id} product={product} onQuickView={setQuickViewProduct} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-space pt-0">
-        <div className="container-shell">
-          <div className="surface-panel grid gap-6 overflow-hidden p-4 sm:gap-8 sm:p-8 lg:grid-cols-[0.95fr_1.05fr] lg:p-10">
-            <div className="space-y-5">
-              <Badge className="bg-black text-white">{dictionary.common.sale}</Badge>
-              <div>
-                <h2 className="break-words font-heading text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-                  {dictionary.home.saleTitle}
-                </h2>
-                <p className="mt-4 text-sm leading-8 text-neutral-600 sm:text-base">
-                  {dictionary.home.saleDescription}
-                </p>
-              </div>
-              <Link to="/shop?flag=sale">
-                <Button>{dictionary.common.shopNow}</Button>
-              </Link>
-            </div>
-            <div className="grid gap-6 sm:grid-cols-2">
-              {saleProducts.map((product) => (
+      {featuredProducts.length > 0 ? (
+        <section className="section-space">
+          <div className="container-shell">
+            <SectionHeading
+              eyebrow={dictionary.common.featured}
+              title={dictionary.home.featuredTitle}
+              description={dictionary.home.featuredDescription}
+              action={
+                <Link to="/shop">
+                  <Button variant="ghost">{dictionary.common.viewAll}</Button>
+                </Link>
+              }
+            />
+            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+              {featuredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} onQuickView={setQuickViewProduct} />
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
+
+      {categories.length > 0 ? (
+        <section className="section-space pt-0">
+          <div className="container-shell">
+            <SectionHeading
+              eyebrow={dictionary.common.discover}
+              title={dictionary.home.categoriesTitle}
+              description={dictionary.home.categoriesDescription}
+            />
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {categories.map((category) => (
+                <Link
+                  key={category.slug}
+                  to={`/shop?category=${category.slug}`}
+                  className="group overflow-hidden rounded-[32px] bg-black/5"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img
+                      src={category.image}
+                      alt={getLocalizedText(category.name, locale)}
+                      className="h-full w-full object-cover transition duration-700 can-hover:group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/55 via-neutral-950/5 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 p-4 text-white sm:p-6">
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <h3 className="font-heading text-2xl font-bold leading-tight sm:text-3xl">
+                            {getLocalizedText(category.name, locale)}
+                          </h3>
+                          <p className="mt-2 max-w-sm text-sm leading-7 text-white/80">
+                            {getLocalizedText(category.description, locale)}
+                          </p>
+                        </div>
+                        <ArrowRight className="h-5 w-5 transition can-hover:group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {trendingProducts.length > 0 ? (
+        <section className="section-space pt-0">
+          <div className="container-shell">
+            <SectionHeading
+              eyebrow={dictionary.common.popular}
+              title={dictionary.home.trendingTitle}
+              description={dictionary.home.trendingDescription}
+            />
+            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+              {trendingProducts.slice(0, 4).map((product) => (
+                <ProductCard key={product.id} product={product} onQuickView={setQuickViewProduct} />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {saleProducts.length > 0 ? (
+        <section className="section-space pt-0">
+          <div className="container-shell">
+            <div className="surface-panel grid gap-6 overflow-hidden p-4 sm:gap-8 sm:p-8 lg:grid-cols-[0.95fr_1.05fr] lg:p-10">
+              <div className="space-y-5">
+                <Badge className="bg-black text-white">{dictionary.common.sale}</Badge>
+                <div>
+                  <h2 className="break-words font-heading text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+                    {dictionary.home.saleTitle}
+                  </h2>
+                  <p className="mt-4 text-sm leading-8 text-neutral-600 sm:text-base">
+                    {dictionary.home.saleDescription}
+                  </p>
+                </div>
+                <Link to="/shop?flag=sale">
+                  <Button>{dictionary.common.shopNow}</Button>
+                </Link>
+              </div>
+              <div className="grid gap-6 sm:grid-cols-2">
+                {saleProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} onQuickView={setQuickViewProduct} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="section-space pt-0">
         <div className="container-shell">
@@ -260,7 +268,7 @@ export const HomePage = () => {
                 <img
                   src={image}
                   alt={`Gallery ${index + 1}`}
-                  className="h-full min-h-[160px] w-full object-cover transition duration-700 hover:scale-105 sm:min-h-[220px]"
+                  className="h-full min-h-[160px] w-full object-cover transition duration-700 can-hover:hover:scale-105 sm:min-h-[220px]"
                 />
               </div>
             ))}

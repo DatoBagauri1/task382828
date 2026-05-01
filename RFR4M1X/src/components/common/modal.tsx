@@ -45,7 +45,7 @@ export const Modal = ({ isOpen, onClose, title, children, className }: ModalProp
               <button
                 type="button"
                 onClick={onClose}
-                className="shrink-0 rounded-full p-2 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-950"
+                className="shrink-0 rounded-full p-2 text-neutral-500 transition can-hover:hover:bg-neutral-100 can-hover:hover:text-neutral-950"
                 aria-label={dictionary.common.close}
               >
                 <X className="h-5 w-5" />

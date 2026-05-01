@@ -12,7 +12,7 @@ import { useWishlistStore } from '@/store/wishlist-store';
 import { cn } from '@/utils/cn';
 
 const navLinkBase =
-  'rounded-full px-4 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100';
+  'rounded-full px-4 py-2 text-sm font-medium text-neutral-700 transition can-hover:hover:bg-neutral-100';
 
 export const Header = () => {
   const dictionary = useTranslation();
@@ -26,6 +26,7 @@ export const Header = () => {
   const cartCount = useCartStore((state) => state.items.reduce((sum, item) => sum + item.quantity, 0));
   const wishlistCount = useWishlistStore((state) => state.items.length);
   const profile = useAuthStore((state) => state.profile);
+  const activeFlag = new URLSearchParams(location.search).get('flag');
 
   const navItems = [
     { href: '/', label: dictionary.nav.home },
@@ -34,6 +35,26 @@ export const Header = () => {
     { href: '/shop?flag=sale', label: dictionary.nav.sale },
   ];
 
+  const isNavItemActive = (href: string) => {
+    if (href === '/') {
+      return location.pathname === '/';
+    }
+
+    if (href === '/shop') {
+      return location.pathname === '/shop' && !activeFlag;
+    }
+
+    if (href.includes('flag=new')) {
+      return location.pathname === '/shop' && activeFlag === 'new';
+    }
+
+    if (href.includes('flag=sale')) {
+      return location.pathname === '/shop' && activeFlag === 'sale';
+    }
+
+    return location.pathname === href;
+  };
+
   return (
     <header className="sticky top-0 z-40 border-b border-neutral-200 bg-white/90 backdrop-blur-xl">
       <div className="container-shell flex min-h-16 items-center justify-between gap-2 py-2 sm:min-h-20 sm:gap-4">
@@ -41,7 +62,7 @@ export const Header = () => {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-            className="rounded-full p-2.5 ring-1 ring-neutral-200 transition hover:bg-neutral-100 sm:p-3 lg:hidden"
+            className="rounded-full p-2.5 ring-1 ring-neutral-200 transition can-hover:hover:bg-neutral-100 sm:p-3 lg:hidden"
             aria-label="Toggle menu"
           >
             <Menu className="h-5 w-5" />
@@ -66,9 +87,7 @@ export const Header = () => {
             <NavLink
               key={item.href}
               to={item.href}
-              className={({ isActive }) =>
-                cn(navLinkBase, isActive && 'bg-neutral-100 text-neutral-950')
-              }
+              className={() => cn(navLinkBase, isNavItemActive(item.href) && 'bg-neutral-100 text-neutral-950')}
             >
               {item.label}
             </NavLink>
@@ -79,21 +98,21 @@ export const Header = () => {
           <button
             type="button"
             onClick={toggleLocale}
-            className="hidden rounded-full p-3 ring-1 ring-neutral-200 transition hover:bg-neutral-100 sm:flex"
+            className="hidden rounded-full p-3 ring-1 ring-neutral-200 transition can-hover:hover:bg-neutral-100 sm:flex"
             aria-label="Toggle language"
           >
             <Languages className="h-5 w-5" />
           </button>
           <Link
             to="/shop"
-            className="hidden rounded-full p-3 ring-1 ring-neutral-200 transition hover:bg-neutral-100 sm:flex"
+            className="hidden rounded-full p-3 ring-1 ring-neutral-200 transition can-hover:hover:bg-neutral-100 sm:flex"
             aria-label={dictionary.common.search}
           >
             <Search className="h-5 w-5" />
           </Link>
           <Link
             to="/wishlist"
-            className="relative rounded-full p-2.5 ring-1 ring-neutral-200 transition hover:bg-neutral-100 sm:p-3"
+            className="relative rounded-full p-2.5 ring-1 ring-neutral-200 transition can-hover:hover:bg-neutral-100 sm:p-3"
             aria-label={dictionary.nav.wishlist}
           >
             <Heart className="h-5 w-5" />
@@ -106,7 +125,7 @@ export const Header = () => {
           <button
             type="button"
             onClick={() => setCartOpen(true)}
-            className="relative rounded-full p-2.5 ring-1 ring-neutral-200 transition hover:bg-neutral-100 sm:p-3"
+            className="relative rounded-full p-2.5 ring-1 ring-neutral-200 transition can-hover:hover:bg-neutral-100 sm:p-3"
             aria-label={dictionary.nav.cart}
           >
             <ShoppingBag className="h-5 w-5" />
@@ -118,7 +137,7 @@ export const Header = () => {
           </button>
           <Link
             to={profile ? '/profile' : '/auth'}
-            className="rounded-full p-2.5 ring-1 ring-neutral-200 transition hover:bg-neutral-100 sm:p-3"
+            className="rounded-full p-2.5 ring-1 ring-neutral-200 transition can-hover:hover:bg-neutral-100 sm:p-3"
             aria-label={profile ? dictionary.nav.profile : dictionary.common.login}
           >
             <User2 className="h-5 w-5" />
@@ -126,7 +145,7 @@ export const Header = () => {
           {profile?.role === 'admin' ? (
             <Link
               to="/admin"
-              className="hidden rounded-full p-3 ring-1 ring-neutral-200 transition hover:bg-neutral-100 sm:flex"
+              className="hidden rounded-full p-3 ring-1 ring-neutral-200 transition can-hover:hover:bg-neutral-100 sm:flex"
               aria-label={dictionary.nav.admin}
             >
               <Shield className="h-5 w-5" />
@@ -152,10 +171,7 @@ export const Header = () => {
               key={item.href}
               to={item.href}
               onClick={() => setMobileMenuOpen(false)}
-              className={cn(
-                navLinkBase,
-                location.pathname === item.href && 'bg-neutral-100 text-neutral-950',
-              )}
+              className={cn(navLinkBase, isNavItemActive(item.href) && 'bg-neutral-100 text-neutral-950')}
             >
               {item.label}
             </Link>

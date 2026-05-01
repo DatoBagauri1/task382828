@@ -31,7 +31,7 @@ export const ProductGallery = ({ images, alt }: ProductGalleryProps) => {
           <img
             src={activeImage}
             alt={alt}
-            className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+            className="h-full w-full object-cover transition duration-700 can-hover:group-hover:scale-110"
           />
         </div>
       </div>

@@ -24,6 +24,7 @@ export const ProductPage = () => {
   const dictionary = useTranslation();
   const locale = useLocale();
   const products = useCommerceStore((state) => state.products);
+  const categories = useCommerceStore((state) => state.categories);
   const addItem = useCartStore((state) => state.addItem);
   const toggleWishlist = useWishlistStore((state) => state.toggleWishlist);
   const isWishlisted = useWishlistStore((state) => state.isWishlisted);
@@ -54,6 +55,8 @@ export const ProductPage = () => {
 
   const activeSize = selectedSize || product.sizes[0] || 'One Size';
   const activeColor = selectedColor || product.colors[0] || 'Default';
+  const category = categories.find((entry) => entry.slug === product.category);
+  const categoryLabel = category ? getLocalizedText(category.name, locale) : product.category.replace(/-/g, ' ');
 
   const addToCart = () => {
     addItem(product, activeSize, activeColor, 1);
@@ -79,7 +82,7 @@ export const ProductPage = () => {
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">
-                  {product.category} / {dictionary.gender[product.gender]}
+                  {categoryLabel} / {dictionary.gender[product.gender]}
                 </p>
                 <h1 className="mt-3 break-words font-heading text-3xl font-bold leading-tight tracking-tight sm:text-5xl">
                   {getLocalizedText(product.name, locale)}
@@ -116,7 +119,7 @@ export const ProductPage = () => {
                       className={`rounded-full px-3.5 py-2 text-sm ring-1 transition sm:px-4 ${
                         activeSize === size
                           ? 'bg-ink text-white ring-ink'
-                          : 'ring-black/10 hover:-translate-y-0.5 hover:bg-neutral-950 hover:text-white hover:ring-neutral-950'
+                          : 'ring-black/10 can-hover:hover:-translate-y-0.5 can-hover:hover:bg-neutral-950 can-hover:hover:text-white can-hover:hover:ring-neutral-950'
                       }`}
                     >
                       {size}
@@ -135,7 +138,7 @@ export const ProductPage = () => {
                       className={`rounded-full px-3.5 py-2 text-sm ring-1 transition sm:px-4 ${
                         activeColor === color
                           ? 'bg-ink text-white ring-ink'
-                          : 'ring-black/10 hover:-translate-y-0.5 hover:bg-neutral-950 hover:text-white hover:ring-neutral-950'
+                          : 'ring-black/10 can-hover:hover:-translate-y-0.5 can-hover:hover:bg-neutral-950 can-hover:hover:text-white can-hover:hover:ring-neutral-950'
                       }`}
                     >
                       {color}

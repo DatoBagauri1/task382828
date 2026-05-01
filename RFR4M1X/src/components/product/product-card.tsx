@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { Badge } from '@/components/common/badge';
 import { useLocale, useTranslation } from '@/hooks/use-translation';
 import { useCartStore } from '@/store/cart-store';
+import { useCommerceStore } from '@/store/commerce-store';
 import { useWishlistStore } from '@/store/wishlist-store';
 import type { Product } from '@/types';
 import { formatCurrency, getLocalizedText } from '@/utils/format';
@@ -18,8 +19,11 @@ export const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
   const dictionary = useTranslation();
   const locale = useLocale();
   const addItem = useCartStore((state) => state.addItem);
+  const categories = useCommerceStore((state) => state.categories);
   const toggleWishlist = useWishlistStore((state) => state.toggleWishlist);
   const isWishlisted = useWishlistStore((state) => state.isWishlisted(product.id));
+  const category = categories.find((entry) => entry.slug === product.category);
+  const categoryLabel = category ? getLocalizedText(category.name, locale) : product.category.replace(/-/g, ' ');
 
   const addDefaultVariant = () => {
     addItem(product, product.sizes[0] ?? 'One Size', product.colors[0] ?? 'Default', 1);
@@ -27,23 +31,23 @@ export const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
   };
 
   return (
-    <article className="group surface-panel overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-glass">
+    <article className="group surface-panel overflow-hidden transition duration-300 can-hover:hover:-translate-y-1 can-hover:hover:shadow-glass">
       <div className="relative aspect-[4/5] overflow-hidden">
         <img
           src={product.images[0]}
           alt={getLocalizedText(product.name, locale)}
-          className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+          className="h-full w-full object-cover transition duration-700 can-hover:group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/35 via-transparent to-transparent opacity-80" />
         <div className="absolute left-4 top-4 flex flex-wrap gap-2">
           {product.flags.isNew ? <Badge>{dictionary.common.new}</Badge> : null}
           {product.flags.isSale ? <Badge className="bg-black text-white">{dictionary.common.sale}</Badge> : null}
         </div>
-        <div className="absolute right-4 top-4 flex flex-col gap-2 opacity-100 transition duration-300 sm:opacity-0 sm:group-hover:opacity-100">
+        <div className="absolute right-4 top-4 flex flex-col gap-2 opacity-100 transition duration-300 sm:opacity-0 sm:can-hover:group-hover:opacity-100">
           <button
             type="button"
             onClick={() => toggleWishlist(product.id)}
-            className="rounded-full bg-white/90 p-3 text-neutral-900 shadow-soft transition hover:-translate-y-0.5 hover:bg-neutral-950 hover:text-white"
+            className="rounded-full bg-white/90 p-3 text-neutral-900 shadow-soft transition can-hover:hover:-translate-y-0.5 can-hover:hover:bg-neutral-950 can-hover:hover:text-white"
             aria-label={dictionary.common.addToWishlist}
           >
             <Heart className={`h-4 w-4 ${isWishlisted ? 'fill-current' : ''}`} />
@@ -51,7 +55,7 @@ export const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
           <button
             type="button"
             onClick={() => onQuickView?.(product)}
-            className="rounded-full bg-white/90 p-3 text-neutral-900 shadow-soft transition hover:-translate-y-0.5 hover:bg-neutral-950 hover:text-white"
+            className="rounded-full bg-white/90 p-3 text-neutral-900 shadow-soft transition can-hover:hover:-translate-y-0.5 can-hover:hover:bg-neutral-950 can-hover:hover:text-white"
             aria-label={dictionary.common.quickView}
           >
             <Eye className="h-4 w-4" />
@@ -62,10 +66,10 @@ export const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
       <div className="space-y-3 p-4 sm:space-y-4 sm:p-5">
         <div className="space-y-2">
           <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-500 sm:text-xs sm:tracking-[0.25em]">
-            {product.category} / {dictionary.gender[product.gender]}
+            {categoryLabel} / {dictionary.gender[product.gender]}
           </p>
           <Link to={`/product/${product.slug}`} className="block">
-            <h3 className="break-words font-heading text-xl font-bold leading-tight transition group-hover:text-neutral-950 sm:text-2xl">
+            <h3 className="break-words font-heading text-xl font-bold leading-tight transition can-hover:group-hover:text-neutral-950 sm:text-2xl">
               {getLocalizedText(product.name, locale)}
             </h3>
           </Link>
@@ -85,7 +89,7 @@ export const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
           <button
             type="button"
             onClick={addDefaultVariant}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/5 transition hover:bg-ink hover:text-white"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/5 transition can-hover:hover:bg-ink can-hover:hover:text-white"
             aria-label={dictionary.common.addToCart}
           >
             <ShoppingBag className="h-4 w-4" />

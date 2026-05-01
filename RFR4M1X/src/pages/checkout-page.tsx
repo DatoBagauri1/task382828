@@ -327,7 +327,7 @@ export const CheckoutPage = () => {
 
                   <input type="hidden" {...form.register('receiptImage')} />
                   <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_180px]">
-                    <label className="flex cursor-pointer flex-col items-center justify-center rounded-[20px] border border-dashed border-black/20 p-4 text-center transition hover:border-neutral-950 sm:rounded-[24px] sm:p-6">
+                    <label className="flex cursor-pointer flex-col items-center justify-center rounded-[20px] border border-dashed border-black/20 p-4 text-center transition can-hover:hover:border-neutral-950 sm:rounded-[24px] sm:p-6">
                       <Upload className="mb-3 h-6 w-6 text-neutral-950" />
                       <span className="font-semibold">{dictionary.checkout.receiptUpload}</span>
                       <span className="mt-2 text-sm leading-7 text-neutral-500">

@@ -8,7 +8,6 @@ import {
   fetchOrders,
   saveCategory as providerSaveCategory,
   saveProduct as providerSaveProduct,
-  seedBundledCatalog,
   type BackendMode,
   updateOrderStatus as providerUpdateOrderStatus,
 } from '@/lib/data-provider';
@@ -45,7 +44,6 @@ type CommerceState = {
   saveCategory: (category: Category) => Promise<void>;
   deleteCategory: (slug: string) => Promise<void>;
   updateOrderStatus: (orderId: string, status: OrderStatus) => Promise<void>;
-  seedCatalog: () => Promise<void>;
 };
 
 export const useCommerceStore = create<CommerceState>((set, get) => ({
@@ -172,20 +170,6 @@ export const useCommerceStore = create<CommerceState>((set, get) => ({
     } catch (error) {
       set({
         error: error instanceof Error ? error.message : 'Failed to update order.',
-        isMutating: false,
-      });
-      throw error;
-    }
-  },
-  seedCatalog: async () => {
-    set({ isMutating: true, error: null });
-    try {
-      await seedBundledCatalog();
-      await get().loadCatalog();
-      set({ isMutating: false });
-    } catch (error) {
-      set({
-        error: error instanceof Error ? error.message : 'Failed to seed catalog.',
         isMutating: false,
       });
       throw error;

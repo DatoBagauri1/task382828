@@ -256,7 +256,7 @@ export const AdminProductsPage = () => {
         {products.map((product) => (
           <div
             key={product.id}
-            className="surface-panel flex flex-col gap-4 p-4 transition hover:-translate-y-0.5 hover:shadow-glass sm:p-5 xl:flex-row xl:items-center xl:justify-between"
+            className="surface-panel flex flex-col gap-4 p-4 transition can-hover:hover:-translate-y-0.5 can-hover:hover:shadow-glass sm:p-5 xl:flex-row xl:items-center xl:justify-between"
           >
             <div className="flex min-w-0 items-center gap-3 sm:gap-4">
               <img
