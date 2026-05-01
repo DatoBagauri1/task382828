@@ -66,7 +66,7 @@ export const DropdownSelect = ({
         aria-expanded={isOpen}
         aria-controls={`${id}-menu`}
         onClick={() => setIsOpen((current) => !current)}
-        className="group flex h-12 w-full items-center justify-between gap-4 rounded-full border border-neutral-300 bg-white px-4 text-left text-sm font-semibold text-neutral-950 shadow-none transition duration-200 hover:-translate-y-0.5 hover:border-neutral-950 hover:bg-neutral-950 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/15"
+        className="group flex min-h-12 w-full items-center justify-between gap-3 rounded-full border border-neutral-300 bg-white px-4 py-2 text-left text-base font-semibold text-neutral-950 shadow-none transition duration-200 hover:-translate-y-0.5 hover:border-neutral-950 hover:bg-neutral-950 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/15 sm:gap-4 sm:text-sm"
       >
         <span className="min-w-0 truncate">{selectedOption?.label}</span>
         <ChevronDown
@@ -86,7 +86,7 @@ export const DropdownSelect = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
             transition={{ duration: 0.16, ease: 'easeOut' }}
-            className="absolute right-0 z-30 mt-3 w-full min-w-[220px] overflow-hidden rounded-[24px] border border-neutral-200 bg-white p-2 shadow-glass"
+            className="absolute right-0 z-30 mt-3 w-full min-w-full overflow-hidden rounded-[20px] border border-neutral-200 bg-white p-2 shadow-glass sm:min-w-[220px] sm:rounded-[24px]"
           >
             {options.map((option) => {
               const isSelected = option.value === value;

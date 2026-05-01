@@ -85,25 +85,26 @@ export const AdminCategoriesPage = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-end">
-        <Button onClick={openCreate}>{dictionary.admin.addCategory}</Button>
+        <Button className="w-full sm:w-auto" onClick={openCreate}>{dictionary.admin.addCategory}</Button>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         {categories.map((category) => (
           <div key={category.id} className="surface-panel overflow-hidden">
-            <img src={category.image} alt={category.name.en} className="h-48 w-full object-cover" />
-            <div className="space-y-4 p-5">
+            <img src={category.image} alt={category.name.en} className="h-40 w-full object-cover sm:h-48" />
+            <div className="space-y-4 p-4 sm:p-5">
               <div>
-                <h3 className="font-heading text-2xl font-bold">{category.name.en}</h3>
+                <h3 className="break-words font-heading text-xl font-bold leading-tight sm:text-2xl">{category.name.en}</h3>
                 <p className="mt-2 text-sm leading-7 text-neutral-600">
                   {category.description.en}
                 </p>
               </div>
-              <div className="flex gap-3">
-                <Button variant="secondary" onClick={() => openEdit(category)}>
+              <div className="grid grid-cols-2 gap-3 sm:flex">
+                <Button variant="secondary" className="w-full sm:w-auto" onClick={() => openEdit(category)}>
                   {dictionary.common.edit}
                 </Button>
                 <Button
                   variant="danger"
+                  className="w-full sm:w-auto"
                   onClick={async () => {
                     try {
                       await deleteCategory(String(category.slug));
@@ -128,21 +129,21 @@ export const AdminCategoriesPage = () => {
       >
         <form className="grid gap-4" onSubmit={handleSubmit}>
           <div className="grid gap-4 sm:grid-cols-2">
-            <input {...form.register('nameEn')} placeholder={dictionary.admin.form.nameEn} className="h-12 rounded-[20px] border border-black/10 bg-transparent px-4 text-sm outline-none" />
-            <input {...form.register('nameKa')} placeholder={dictionary.admin.form.nameKa} className="h-12 rounded-[20px] border border-black/10 bg-transparent px-4 text-sm outline-none" />
+            <input {...form.register('nameEn')} placeholder={dictionary.admin.form.nameEn} className="min-h-12 rounded-[20px] border border-black/10 bg-transparent px-4 text-base outline-none sm:text-sm" />
+            <input {...form.register('nameKa')} placeholder={dictionary.admin.form.nameKa} className="min-h-12 rounded-[20px] border border-black/10 bg-transparent px-4 text-base outline-none sm:text-sm" />
           </div>
-          <textarea {...form.register('descriptionEn')} rows={4} placeholder={dictionary.admin.form.descriptionEn} className="rounded-[20px] border border-black/10 bg-transparent px-4 py-3 text-sm outline-none" />
-          <textarea {...form.register('descriptionKa')} rows={4} placeholder={dictionary.admin.form.descriptionKa} className="rounded-[20px] border border-black/10 bg-transparent px-4 py-3 text-sm outline-none" />
-          <input {...form.register('image')} placeholder={dictionary.admin.form.image} className="h-12 rounded-[20px] border border-black/10 bg-transparent px-4 text-sm outline-none" />
+          <textarea {...form.register('descriptionEn')} rows={4} placeholder={dictionary.admin.form.descriptionEn} className="rounded-[20px] border border-black/10 bg-transparent px-4 py-3 text-base outline-none sm:text-sm" />
+          <textarea {...form.register('descriptionKa')} rows={4} placeholder={dictionary.admin.form.descriptionKa} className="rounded-[20px] border border-black/10 bg-transparent px-4 py-3 text-base outline-none sm:text-sm" />
+          <input {...form.register('image')} placeholder={dictionary.admin.form.image} className="min-h-12 rounded-[20px] border border-black/10 bg-transparent px-4 text-base outline-none sm:text-sm" />
           <label className="surface-panel flex items-center gap-3 p-4 text-sm">
             <input type="checkbox" {...form.register('featured')} />
             {dictionary.admin.form.featured}
           </label>
-          <div className="flex justify-end gap-3">
-            <Button variant="secondary" onClick={() => setIsOpen(false)}>
+          <div className="grid grid-cols-2 gap-3 sm:flex sm:justify-end">
+            <Button variant="secondary" className="w-full sm:w-auto" onClick={() => setIsOpen(false)}>
               {dictionary.common.cancel}
             </Button>
-            <Button type="submit">{dictionary.common.save}</Button>
+            <Button type="submit" className="w-full sm:w-auto">{dictionary.common.save}</Button>
           </div>
         </form>
       </Modal>

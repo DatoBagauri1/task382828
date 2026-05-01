@@ -13,10 +13,10 @@ export const SectionHeading = ({
   description,
   action,
 }: SectionHeadingProps) => (
-  <div className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
+  <div className="mb-6 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
     <div className="max-w-2xl">
       {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
-      <h2 className="mt-3 font-heading text-3xl font-bold text-neutral-950 sm:text-4xl">
+      <h2 className="mt-3 break-words font-heading text-2xl font-bold leading-tight text-neutral-950 sm:text-4xl">
         {title}
       </h2>
       {description ? (

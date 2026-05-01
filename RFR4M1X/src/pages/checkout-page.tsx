@@ -119,7 +119,7 @@ export const CheckoutPage = () => {
   const deliveryFee = subtotal >= 300 || subtotal === 0 ? 0 : 15;
   const total = subtotal + deliveryFee;
   const inputClass = (hasError = false, className = '') =>
-    `h-12 rounded-[20px] border bg-transparent px-4 text-sm outline-none transition focus:border-neutral-950 ${
+    `min-h-12 w-full rounded-[20px] border bg-transparent px-4 text-base outline-none transition focus:border-neutral-950 sm:text-sm ${
       hasError ? 'border-neutral-950 bg-neutral-950/[0.03]' : 'border-black/10'
     } ${className}`;
   const fieldError = (field: keyof Pick<CheckoutValues, 'name' | 'address' | 'city'>) =>
@@ -189,16 +189,16 @@ export const CheckoutPage = () => {
       <div className="container-shell section-space">
         <div className="mb-8">
           <p className="eyebrow">{dictionary.common.checkout}</p>
-          <h1 className="mt-3 font-heading text-4xl font-bold tracking-tight">{dictionary.checkout.title}</h1>
+          <h1 className="mt-3 break-words font-heading text-3xl font-bold leading-tight tracking-tight sm:text-4xl">{dictionary.checkout.title}</h1>
           <p className="mt-4 max-w-2xl text-sm leading-8 text-neutral-600 sm:text-base">
             {dictionary.checkout.description}
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-          <form className="surface-panel space-y-8 p-6 sm:p-8" onSubmit={handleCheckout}>
+        <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
+          <form className="surface-panel space-y-6 p-4 sm:space-y-8 sm:p-8" onSubmit={handleCheckout}>
             <section className="space-y-4">
-              <h2 className="font-heading text-3xl font-bold">{dictionary.checkout.customerDetails}</h2>
+              <h2 className="break-words font-heading text-2xl font-bold leading-tight sm:text-3xl">{dictionary.checkout.customerDetails}</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <input
@@ -256,9 +256,9 @@ export const CheckoutPage = () => {
             </section>
 
             <section className="space-y-4">
-              <h2 className="font-heading text-3xl font-bold">{dictionary.checkout.payment}</h2>
-              <div className="grid gap-4 lg:grid-cols-3">
-                <label className="surface-panel flex cursor-pointer flex-col gap-3 p-5">
+              <h2 className="break-words font-heading text-2xl font-bold leading-tight sm:text-3xl">{dictionary.checkout.payment}</h2>
+              <div className="grid gap-4 md:grid-cols-3">
+                <label className="surface-panel flex cursor-pointer flex-col gap-3 p-4 sm:p-5">
                   <input
                     {...form.register('paymentMethod')}
                     type="radio"
@@ -273,7 +273,7 @@ export const CheckoutPage = () => {
                     </p>
                   </div>
                 </label>
-                <label className="surface-panel flex cursor-pointer flex-col gap-3 p-5">
+                <label className="surface-panel flex cursor-pointer flex-col gap-3 p-4 sm:p-5">
                   <input
                     {...form.register('paymentMethod')}
                     type="radio"
@@ -288,7 +288,7 @@ export const CheckoutPage = () => {
                     </p>
                   </div>
                 </label>
-                <label className="surface-panel flex cursor-pointer flex-col gap-3 p-5">
+                <label className="surface-panel flex cursor-pointer flex-col gap-3 p-4 sm:p-5">
                   <input
                     {...form.register('paymentMethod')}
                     type="radio"
@@ -306,7 +306,7 @@ export const CheckoutPage = () => {
               </div>
 
               {selectedBank ? (
-                <div className="rounded-[28px] border border-black/10 bg-black/[0.03] p-5">
+                <div className="rounded-[20px] border border-black/10 bg-black/[0.03] p-4 sm:rounded-[28px] sm:p-5">
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
                       <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">
@@ -327,7 +327,7 @@ export const CheckoutPage = () => {
 
                   <input type="hidden" {...form.register('receiptImage')} />
                   <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_180px]">
-                    <label className="flex cursor-pointer flex-col items-center justify-center rounded-[24px] border border-dashed border-black/20 p-6 text-center transition hover:border-neutral-950">
+                    <label className="flex cursor-pointer flex-col items-center justify-center rounded-[20px] border border-dashed border-black/20 p-4 text-center transition hover:border-neutral-950 sm:rounded-[24px] sm:p-6">
                       <Upload className="mb-3 h-6 w-6 text-neutral-950" />
                       <span className="font-semibold">{dictionary.checkout.receiptUpload}</span>
                       <span className="mt-2 text-sm leading-7 text-neutral-500">
@@ -374,18 +374,18 @@ export const CheckoutPage = () => {
             </Button>
           </form>
 
-          <aside className="surface-panel h-fit space-y-6 p-6">
-            <h2 className="font-heading text-3xl font-bold">{dictionary.checkout.summary}</h2>
+          <aside className="surface-panel h-fit space-y-5 p-4 sm:space-y-6 sm:p-6">
+            <h2 className="break-words font-heading text-2xl font-bold leading-tight sm:text-3xl">{dictionary.checkout.summary}</h2>
             <div className="space-y-4">
               {items.map((item) => (
                 <div key={item.id} className="flex gap-3">
                   <img
                     src={item.product.images[0]}
                     alt={getLocalizedText(item.product.name, locale)}
-                    className="h-20 w-16 rounded-2xl object-cover"
+                    className="h-16 w-14 shrink-0 rounded-2xl object-cover sm:h-20 sm:w-16"
                   />
-                  <div className="flex flex-1 items-center justify-between gap-3">
-                    <div>
+                  <div className="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+                    <div className="min-w-0">
                       <p className="font-semibold">{getLocalizedText(item.product.name, locale)}</p>
                       <p className="text-sm text-neutral-500">
                         {item.quantity} x {item.size}

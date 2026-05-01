@@ -48,16 +48,16 @@ export const HomePage = () => {
 
       <section className="overflow-hidden">
         <div className="container-shell section-space">
-          <div className="glass-panel grid gap-10 overflow-hidden p-6 sm:p-8 lg:grid-cols-[1.15fr_0.85fr] lg:p-10">
-            <div className="relative flex flex-col justify-between gap-8">
+          <div className="glass-panel grid gap-6 overflow-hidden p-4 sm:gap-10 sm:p-8 lg:grid-cols-[1.15fr_0.85fr] lg:p-10">
+            <div className="relative flex flex-col justify-between gap-6 sm:gap-8">
               <div className="absolute -left-10 top-0 h-40 w-40 rounded-full bg-neutral-100 blur-3xl" />
               <div className="relative space-y-6">
                 <Badge>{dictionary.home.heroEyebrow}</Badge>
                 <div className="space-y-4">
-                  <h1 className="max-w-3xl font-heading text-5xl font-extrabold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
+                  <h1 className="max-w-3xl break-words font-heading text-[clamp(2.45rem,13vw,3.5rem)] font-extrabold leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
                     {dictionary.home.heroTitle}
                   </h1>
-                  <p className="max-w-2xl text-sm leading-8 text-neutral-600 sm:text-base">
+                  <p className="max-w-2xl text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8">
                     {dictionary.home.heroDescription}
                   </p>
                 </div>
@@ -67,10 +67,10 @@ export const HomePage = () => {
                   </Link>
                 </div>
               </div>
-              <div className="grid gap-4 sm:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
                 {heroStats.map((stat) => (
-                  <div key={stat.value} className="surface-panel p-4">
-                    <p className="font-heading text-3xl font-bold">{stat.value}</p>
+                  <div key={stat.value} className="surface-panel p-3.5 sm:p-4">
+                    <p className="font-heading text-2xl font-bold sm:text-3xl">{stat.value}</p>
                     <p className="mt-2 text-sm text-neutral-600">
                       {getLocalizedText(stat.label, locale)}
                     </p>
@@ -83,7 +83,7 @@ export const HomePage = () => {
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="relative min-h-[420px] overflow-hidden rounded-[36px]"
+              className="relative min-h-[300px] overflow-hidden rounded-[24px] sm:min-h-[420px] sm:rounded-[36px]"
             >
               <img
                 src={heroImage}
@@ -91,12 +91,12 @@ export const HomePage = () => {
                 className="h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/45 via-neutral-950/10 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 glass-panel p-5">
+              <div className="absolute bottom-3 left-3 right-3 glass-panel p-4 sm:bottom-6 sm:left-6 sm:right-6 sm:p-5">
                 <p className="eyebrow">{dictionary.common.featured}</p>
-                <p className="mt-3 font-heading text-2xl font-bold">
+                <p className="mt-3 font-heading text-xl font-bold leading-tight sm:text-2xl">
                   {dictionary.misc.heroCardTitle}
                 </p>
-                <p className="mt-2 text-sm leading-7 text-neutral-600">
+                <p className="mt-2 line-clamp-3 text-sm leading-7 text-neutral-600 sm:line-clamp-none">
                   {dictionary.misc.heroCardDescription}
                 </p>
               </div>
@@ -146,10 +146,10 @@ export const HomePage = () => {
                     className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/55 via-neutral-950/5 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+                <div className="absolute inset-x-0 bottom-0 p-4 text-white sm:p-6">
                     <div className="flex items-center justify-between gap-4">
                       <div>
-                        <h3 className="font-heading text-3xl font-bold">
+                        <h3 className="font-heading text-2xl font-bold leading-tight sm:text-3xl">
                           {getLocalizedText(category.name, locale)}
                         </h3>
                         <p className="mt-2 max-w-sm text-sm leading-7 text-white/80">
@@ -183,11 +183,11 @@ export const HomePage = () => {
 
       <section className="section-space pt-0">
         <div className="container-shell">
-          <div className="surface-panel grid gap-8 overflow-hidden p-6 sm:p-8 lg:grid-cols-[0.95fr_1.05fr] lg:p-10">
+          <div className="surface-panel grid gap-6 overflow-hidden p-4 sm:gap-8 sm:p-8 lg:grid-cols-[0.95fr_1.05fr] lg:p-10">
             <div className="space-y-5">
               <Badge className="bg-black text-white">{dictionary.common.sale}</Badge>
               <div>
-                <h2 className="font-heading text-4xl font-bold tracking-tight">
+                <h2 className="break-words font-heading text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
                   {dictionary.home.saleTitle}
                 </h2>
                 <p className="mt-4 text-sm leading-8 text-neutral-600 sm:text-base">
@@ -251,7 +251,7 @@ export const HomePage = () => {
                 <img
                   src={image}
                   alt={`Gallery ${index + 1}`}
-                  className="h-full min-h-[220px] w-full object-cover transition duration-700 hover:scale-105"
+                  className="h-full min-h-[160px] w-full object-cover transition duration-700 hover:scale-105 sm:min-h-[220px]"
                 />
               </div>
             ))}
@@ -261,9 +261,9 @@ export const HomePage = () => {
 
       <section className="section-space pt-0">
         <div className="container-shell">
-          <div className="glass-panel p-8 text-center sm:p-10">
+          <div className="glass-panel p-5 text-center sm:p-10">
             <p className="eyebrow">{dictionary.common.new}</p>
-            <h2 className="mt-3 font-heading text-4xl font-bold tracking-tight">
+            <h2 className="mt-3 break-words font-heading text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
               {dictionary.home.newsletterTitle}
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm leading-8 text-neutral-600 sm:text-base">
@@ -280,7 +280,7 @@ export const HomePage = () => {
                 type="email"
                 required
                 placeholder={dictionary.home.newsletterPlaceholder}
-                className="h-12 flex-1 rounded-full border border-black/10 bg-white/80 px-5 text-sm outline-none ring-0 transition focus:border-neutral-950"
+                className="min-h-12 flex-1 rounded-full border border-black/10 bg-white/80 px-5 text-base outline-none ring-0 transition focus:border-neutral-950 sm:text-sm"
               />
               <Button size="lg" className="sm:min-w-[180px]">
                 {dictionary.home.newsletterButton}

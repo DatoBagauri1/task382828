@@ -9,16 +9,16 @@ export const Footer = () => {
 
   return (
     <footer className="border-t border-black/5 bg-black/[0.02]">
-      <div className="container-shell grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="container-shell grid gap-8 py-8 sm:grid-cols-2 sm:py-12 lg:grid-cols-4 lg:gap-10">
         <div className="space-y-4">
           <Link to="/" className="flex items-center gap-3" aria-label={dictionary.brand}>
             <img
               src="/brand-logo.png"
               alt={dictionary.brand}
-              className="h-14 w-14 rounded-full bg-black object-cover ring-1 ring-black/10"
+              className="h-12 w-12 shrink-0 rounded-full bg-black object-cover ring-1 ring-black/10 sm:h-14 sm:w-14"
             />
-            <div>
-              <h3 className="font-heading text-xl font-bold leading-none">{brandPrimary}</h3>
+            <div className="min-w-0">
+              <h3 className="break-words font-heading text-lg font-bold leading-tight sm:text-xl">{brandPrimary}</h3>
               <p className="mt-1 text-xs font-semibold uppercase leading-none text-neutral-500">
                 {brandSecondary ? `LIMITED ${brandSecondary}` : dictionary.misc.headerTagline}
               </p>
@@ -48,8 +48,8 @@ export const Footer = () => {
               <Phone className="h-4 w-4" />
               +995 555 00 00 00
             </p>
-            <p className="flex items-center gap-2">
-              <Mail className="h-4 w-4" />
+            <p className="flex items-center gap-2 break-all">
+              <Mail className="h-4 w-4 shrink-0" />
               studio@alexandralimitedcollection.com
             </p>
           </div>

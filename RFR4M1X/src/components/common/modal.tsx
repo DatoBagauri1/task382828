@@ -19,26 +19,33 @@ export const Modal = ({ isOpen, onClose, title, children, className }: ModalProp
     <AnimatePresence>
       {isOpen ? (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/55 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-end justify-center bg-neutral-950/55 p-2 backdrop-blur-sm sm:items-center sm:p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
         >
           <motion.div
-            className={cn('surface-panel max-h-[90vh] w-full max-w-3xl overflow-y-auto p-5 sm:p-7', className)}
+            className={cn(
+              'surface-panel max-h-[calc(100svh-1rem)] w-full max-w-3xl overflow-y-auto rounded-b-none p-4 sm:max-h-[90vh] sm:rounded-b-2xl sm:p-7',
+              className,
+            )}
             initial={{ opacity: 0, y: 32, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.98 }}
             transition={{ duration: 0.24 }}
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="mb-4 flex items-center justify-between gap-4">
-              {title ? <h3 className="font-heading text-2xl font-bold">{title}</h3> : <span />}
+            <div className="mb-4 flex items-start justify-between gap-3">
+              {title ? (
+                <h3 className="min-w-0 break-words font-heading text-xl font-bold leading-tight sm:text-2xl">
+                  {title}
+                </h3>
+              ) : <span />}
               <button
                 type="button"
                 onClick={onClose}
-                className="rounded-full p-2 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-950"
+                className="shrink-0 rounded-full p-2 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-950"
                 aria-label={dictionary.common.close}
               >
                 <X className="h-5 w-5" />

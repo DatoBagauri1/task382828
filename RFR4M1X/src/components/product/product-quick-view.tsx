@@ -48,13 +48,13 @@ const QuickViewContent = ({
   };
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+    <div className="grid gap-4 sm:gap-6 lg:grid-cols-[1.1fr_0.9fr]">
       <img
         src={product.images[0]}
         alt={getLocalizedText(product.name, locale)}
-        className="aspect-[4/5] w-full rounded-[28px] object-cover"
+        className="aspect-[4/5] max-h-[48svh] w-full rounded-[20px] object-cover sm:max-h-none sm:rounded-[28px]"
       />
-      <div className="space-y-5">
+      <div className="space-y-4 sm:space-y-5">
         <div className="space-y-3">
           <RatingStars value={product.rating} />
           <p className="text-sm leading-7 text-neutral-600">
@@ -62,7 +62,7 @@ const QuickViewContent = ({
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-2xl font-bold">{formatCurrency(product.price, locale)}</span>
+          <span className="text-xl font-bold sm:text-2xl">{formatCurrency(product.price, locale)}</span>
           {product.oldPrice ? (
             <span className="text-sm text-neutral-400 line-through">
               {formatCurrency(product.oldPrice, locale)}
@@ -77,7 +77,7 @@ const QuickViewContent = ({
                 key={size}
                 type="button"
                 onClick={() => setSelectedSize(size)}
-                className={`rounded-full px-4 py-2 text-sm ring-1 transition ${
+                className={`rounded-full px-3.5 py-2 text-sm ring-1 transition sm:px-4 ${
                   selectedSize === size
                     ? 'bg-ink text-white ring-ink'
                     : 'ring-black/10 hover:-translate-y-0.5 hover:bg-neutral-950 hover:text-white hover:ring-neutral-950'
@@ -96,7 +96,7 @@ const QuickViewContent = ({
                 key={color}
                 type="button"
                 onClick={() => setSelectedColor(color)}
-                className={`rounded-full px-4 py-2 text-sm ring-1 transition ${
+                className={`rounded-full px-3.5 py-2 text-sm ring-1 transition sm:px-4 ${
                   selectedColor === color
                     ? 'bg-ink text-white ring-ink'
                     : 'ring-black/10 hover:-translate-y-0.5 hover:bg-neutral-950 hover:text-white hover:ring-neutral-950'

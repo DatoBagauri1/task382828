@@ -29,17 +29,17 @@ export const CartDrawer = () => {
           onClick={() => setCartOpen(false)}
         >
           <motion.aside
-            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-[rgb(var(--background))] p-5 shadow-soft"
+            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-[rgb(var(--background))] p-4 shadow-soft sm:p-5"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', stiffness: 220, damping: 28 }}
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="mb-6 flex items-center justify-between">
+            <div className="mb-4 flex items-start justify-between gap-3 sm:mb-6">
               <div>
                 <p className="eyebrow">{dictionary.nav.cart}</p>
-                <h3 className="mt-2 font-heading text-2xl font-bold">{dictionary.cart.drawerTitle}</h3>
+                <h3 className="mt-2 break-words font-heading text-xl font-bold leading-tight sm:text-2xl">{dictionary.cart.drawerTitle}</h3>
               </div>
               <button
                 type="button"
@@ -54,16 +54,16 @@ export const CartDrawer = () => {
             <div className="flex-1 space-y-4 overflow-y-auto">
               {items.length ? (
                 items.map((item) => (
-                  <div key={item.id} className="surface-panel flex gap-4 p-4">
+                  <div key={item.id} className="surface-panel flex gap-3 p-3.5 sm:gap-4 sm:p-4">
                     <img
                       src={item.product.images[0]}
                       alt={getLocalizedText(item.product.name, locale)}
-                      className="h-24 w-20 rounded-2xl object-cover"
+                      className="h-20 w-16 shrink-0 rounded-2xl object-cover sm:h-24 sm:w-20"
                     />
                     <div className="flex flex-1 flex-col gap-2">
                       <div className="flex items-start justify-between gap-3">
                         <div>
-                          <p className="font-semibold">
+                          <p className="break-words text-sm font-semibold sm:text-base">
                             {getLocalizedText(item.product.name, locale)}
                           </p>
                           <p className="text-sm text-neutral-500">
@@ -103,7 +103,7 @@ export const CartDrawer = () => {
               )}
             </div>
 
-            <div className="mt-6 space-y-4 border-t border-black/5 pt-6">
+            <div className="mt-4 space-y-4 border-t border-black/5 pt-4 sm:mt-6 sm:pt-6">
               <div className="flex items-center justify-between text-sm">
                 <span>{dictionary.common.subtotal}</span>
                 <span className="font-semibold">{formatCurrency(subtotal, locale)}</span>

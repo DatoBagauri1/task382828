@@ -21,9 +21,9 @@ const variantClass: Record<NonNullable<ButtonProps['variant']>, string> = {
 };
 
 const sizeClass: Record<NonNullable<ButtonProps['size']>, string> = {
-  sm: 'h-10 px-4 text-sm',
-  md: 'h-11 px-5 text-sm sm:text-[15px]',
-  lg: 'h-12 px-6 text-base',
+  sm: 'min-h-10 px-3.5 py-2 text-sm sm:px-4',
+  md: 'min-h-11 px-4 py-2.5 text-sm sm:px-5 sm:text-[15px]',
+  lg: 'min-h-12 px-5 py-3 text-sm sm:px-6 sm:text-base',
 };
 
 export const Button = ({
@@ -37,7 +37,7 @@ export const Button = ({
   <button
     type={type}
     className={cn(
-      'inline-flex items-center justify-center rounded-full font-semibold transition duration-300 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0',
+      'inline-flex items-center justify-center rounded-full text-center font-semibold leading-tight transition duration-300 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0',
       variantClass[variant],
       sizeClass[size],
       className,

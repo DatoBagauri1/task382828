@@ -4,7 +4,7 @@ import { forwardRef, type InputHTMLAttributes, type SelectHTMLAttributes, type T
 import { cn } from '@/utils/cn';
 
 export const inputClass =
-  'w-full rounded-full border border-neutral-300 bg-white px-4 text-sm text-neutral-950 outline-none transition duration-200 placeholder:text-neutral-400 hover:border-neutral-950 hover:bg-neutral-50 focus:border-neutral-950 focus:bg-white focus:ring-2 focus:ring-neutral-950/10';
+  'w-full rounded-full border border-neutral-300 bg-white px-4 text-base text-neutral-950 outline-none transition duration-200 placeholder:text-neutral-400 hover:border-neutral-950 hover:bg-neutral-50 focus:border-neutral-950 focus:bg-white focus:ring-2 focus:ring-neutral-950/10 sm:text-sm';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
@@ -13,13 +13,13 @@ type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
 };
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(({ className, ...props }, ref) => (
-  <input ref={ref} className={cn('h-12', inputClass, className)} {...props} />
+  <input ref={ref} className={cn('min-h-12', inputClass, className)} {...props} />
 ));
 
 Input.displayName = 'Input';
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(({ className, ...props }, ref) => (
-  <textarea ref={ref} className={cn('rounded-2xl py-3', inputClass, className)} {...props} />
+  <textarea ref={ref} className={cn('min-h-24 rounded-2xl py-3', inputClass, className)} {...props} />
 ));
 
 Textarea.displayName = 'Textarea';
@@ -29,7 +29,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     <div className={cn('group relative', wrapperClassName)}>
       <select
         ref={ref}
-        className={cn('peer h-12 appearance-none cursor-pointer pr-11', inputClass, className)}
+        className={cn('peer min-h-12 appearance-none cursor-pointer pr-11', inputClass, className)}
         {...props}
       >
         {children}

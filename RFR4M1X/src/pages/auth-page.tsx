@@ -71,25 +71,25 @@ export const AuthPage = () => {
     <>
       <SEO title={`${dictionary.auth.title} | ALEXANDRA LIMITED COLLECTION`} description={dictionary.auth.description} />
       <div className="container-shell section-space">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="grid gap-5 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8">
           <div className="glass-panel overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80"
               alt={dictionary.brand}
-              className="h-full min-h-[360px] w-full object-cover"
+              className="h-full min-h-[220px] w-full object-cover sm:min-h-[360px]"
             />
           </div>
 
-          <div className="surface-panel p-6 sm:p-8">
+          <div className="surface-panel p-4 sm:p-8">
             <p className="eyebrow">{dictionary.auth.title}</p>
-            <h1 className="mt-3 font-heading text-4xl font-bold tracking-tight">
+            <h1 className="mt-3 break-words font-heading text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
               {mode === 'signin' ? dictionary.auth.signinTitle : dictionary.auth.signupTitle}
             </h1>
             <p className="mt-4 text-sm leading-8 text-neutral-600 sm:text-base">
               {dictionary.auth.description}
             </p>
 
-            <div className="mt-8 flex gap-3">
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:flex">
               <Button
                 variant={mode === 'signin' ? 'primary' : 'secondary'}
                 onClick={() => setMode('signin')}
@@ -110,13 +110,13 @@ export const AuthPage = () => {
                   {...signInForm.register('email')}
                   type="email"
                   placeholder={dictionary.auth.email}
-                  className="h-12 w-full rounded-[20px] border border-black/10 bg-transparent px-4 text-sm outline-none focus:border-neutral-950"
+                  className="min-h-12 w-full rounded-[20px] border border-black/10 bg-transparent px-4 text-base outline-none focus:border-neutral-950 sm:text-sm"
                 />
                 <input
                   {...signInForm.register('password')}
                   type="password"
                   placeholder={dictionary.auth.password}
-                  className="h-12 w-full rounded-[20px] border border-black/10 bg-transparent px-4 text-sm outline-none focus:border-neutral-950"
+                  className="min-h-12 w-full rounded-[20px] border border-black/10 bg-transparent px-4 text-base outline-none focus:border-neutral-950 sm:text-sm"
                 />
                 <Button type="submit" size="lg" className="w-full">
                   {dictionary.common.login}
@@ -128,19 +128,19 @@ export const AuthPage = () => {
                   {...signUpForm.register('fullName')}
                   type="text"
                   placeholder={dictionary.auth.fullName}
-                  className="h-12 w-full rounded-[20px] border border-black/10 bg-transparent px-4 text-sm outline-none focus:border-neutral-950"
+                  className="min-h-12 w-full rounded-[20px] border border-black/10 bg-transparent px-4 text-base outline-none focus:border-neutral-950 sm:text-sm"
                 />
                 <input
                   {...signUpForm.register('email')}
                   type="email"
                   placeholder={dictionary.auth.email}
-                  className="h-12 w-full rounded-[20px] border border-black/10 bg-transparent px-4 text-sm outline-none focus:border-neutral-950"
+                  className="min-h-12 w-full rounded-[20px] border border-black/10 bg-transparent px-4 text-base outline-none focus:border-neutral-950 sm:text-sm"
                 />
                 <input
                   {...signUpForm.register('password')}
                   type="password"
                   placeholder={dictionary.auth.password}
-                  className="h-12 w-full rounded-[20px] border border-black/10 bg-transparent px-4 text-sm outline-none focus:border-neutral-950"
+                  className="min-h-12 w-full rounded-[20px] border border-black/10 bg-transparent px-4 text-base outline-none focus:border-neutral-950 sm:text-sm"
                 />
                 <Button type="submit" size="lg" className="w-full">
                   {dictionary.common.signup}
@@ -148,7 +148,7 @@ export const AuthPage = () => {
               </form>
             )}
 
-            <div className="mt-8 rounded-[24px] bg-black/5 p-5 text-sm leading-7 text-neutral-600">
+            <div className="mt-6 rounded-[20px] bg-black/5 p-4 text-sm leading-7 text-neutral-600 sm:mt-8 sm:rounded-[24px] sm:p-5">
               <p className="font-semibold">{dictionary.misc.demoAccounts}</p>
               <p className="mt-2">{dictionary.auth.helper}</p>
               <p className="mt-3">{dictionary.common.admin}: `admin@alexandralimitedcollection.com` / `Admin123!`</p>

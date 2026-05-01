@@ -22,7 +22,7 @@ const parseGender = (value: string | null): ProductGender | '' =>
   genderOptions.includes(value as ProductGender) ? (value as ProductGender) : '';
 
 const filterPillClass = (isActive: boolean) =>
-  `rounded-full px-4 py-2 text-sm ring-1 transition duration-200 ${
+  `rounded-full px-3.5 py-2 text-sm ring-1 transition duration-200 sm:px-4 ${
     isActive
       ? 'bg-ink text-white ring-ink shadow-soft'
       : 'ring-black/10 hover:-translate-y-0.5 hover:bg-neutral-950 hover:text-white hover:ring-neutral-950'
@@ -177,10 +177,10 @@ export const ShopPage = () => {
           description={dictionary.shop.description}
         />
 
-        <div className="grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)]">
+        <div className="grid gap-5 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-8">
           <aside className="surface-panel h-fit">
-            <div className="rounded-t-2xl bg-neutral-950 p-5 text-white">
-              <div className="flex items-center justify-between gap-4">
+            <div className="rounded-t-[20px] bg-neutral-950 p-4 text-white sm:rounded-t-2xl sm:p-5">
+              <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <Filter className="h-4 w-4" />
                   <h3 className="font-semibold">{dictionary.shop.filters}</h3>
@@ -201,7 +201,7 @@ export const ShopPage = () => {
               </div>
             </div>
 
-            <div className="space-y-6 p-6">
+            <div className="space-y-5 p-4 sm:space-y-6 sm:p-6">
               <DropdownSelect
                 label={dictionary.shop.category}
                 value={selectedCategory}
@@ -216,7 +216,7 @@ export const ShopPage = () => {
                 onChange={(value) => updateGender(parseGender(value))}
               />
 
-              <div className="space-y-3 rounded-[24px] border border-neutral-200 bg-neutral-50 p-4">
+              <div className="space-y-3 rounded-[20px] border border-neutral-200 bg-neutral-50 p-3.5 sm:rounded-[24px] sm:p-4">
                 <label className="flex items-center justify-between gap-3 text-sm font-semibold">
                   <span>{dictionary.shop.price}</span>
                   <span className="rounded-full bg-white px-3 py-1 text-xs ring-1 ring-neutral-200">
@@ -281,7 +281,7 @@ export const ShopPage = () => {
           </aside>
 
           <div className="space-y-6">
-            <div className="flex flex-col gap-4 rounded-[32px] border border-neutral-200 bg-neutral-50 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-4 rounded-[22px] border border-neutral-200 bg-neutral-50 p-3.5 sm:flex-row sm:items-center sm:justify-between sm:rounded-[32px] sm:p-4">
               <div className="relative flex-1">
                 <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
                 <input
@@ -289,7 +289,7 @@ export const ShopPage = () => {
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
                   placeholder={dictionary.shop.searchPlaceholder}
-                  className="h-12 w-full rounded-full border border-neutral-300 bg-white pl-11 pr-4 text-sm outline-none focus:border-neutral-950"
+                  className="min-h-12 w-full rounded-full border border-neutral-300 bg-white pl-11 pr-4 text-base outline-none focus:border-neutral-950 sm:text-sm"
                 />
               </div>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -315,11 +315,11 @@ export const ShopPage = () => {
                     <ProductCard key={product.id} product={product} onQuickView={setQuickViewProduct} />
                   ))}
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-sm text-neutral-600">
                     {dictionary.shop.page} {page} {dictionary.shop.of} {totalPages}
                   </p>
-                  <div className="flex gap-3">
+                  <div className="grid grid-cols-2 gap-3 sm:flex">
                     <Button variant="secondary" disabled={page === 1} onClick={() => setPage(page - 1)}>
                       {dictionary.common.previous}
                     </Button>

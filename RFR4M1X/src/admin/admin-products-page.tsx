@@ -110,8 +110,8 @@ const FormSection = ({
   children: ReactNode;
   className?: string;
 }) => (
-  <section className={cn('rounded-[28px] border border-neutral-200 bg-neutral-50 p-4 sm:p-5', className)}>
-    <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-neutral-500">
+  <section className={cn('rounded-[20px] border border-neutral-200 bg-neutral-50 p-3.5 sm:rounded-[28px] sm:p-5', className)}>
+    <h4 className="mb-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-500 sm:text-xs sm:tracking-[0.24em]">
       {title}
     </h4>
     {children}
@@ -129,7 +129,7 @@ const Field = ({
   children: ReactNode;
   className?: string;
 }) => (
-  <label className={cn('block space-y-2', className)}>
+  <label className={cn('block min-w-0 space-y-2', className)}>
     <span className="text-sm font-semibold text-neutral-900">{label}</span>
     {children}
     {error ? <span className="block text-xs font-semibold text-neutral-950">{error}</span> : null}
@@ -250,36 +250,37 @@ export const AdminProductsPage = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-end">
-        <Button onClick={openCreate}>{dictionary.admin.addProduct}</Button>
+        <Button className="w-full sm:w-auto" onClick={openCreate}>{dictionary.admin.addProduct}</Button>
       </div>
       <div className="grid gap-4">
         {products.map((product) => (
           <div
             key={product.id}
-            className="surface-panel flex flex-col gap-4 p-5 transition hover:-translate-y-0.5 hover:shadow-glass xl:flex-row xl:items-center xl:justify-between"
+            className="surface-panel flex flex-col gap-4 p-4 transition hover:-translate-y-0.5 hover:shadow-glass sm:p-5 xl:flex-row xl:items-center xl:justify-between"
           >
-            <div className="flex items-center gap-4">
+            <div className="flex min-w-0 items-center gap-3 sm:gap-4">
               <img
                 src={product.images[0] ?? '/brand-logo.png'}
                 alt={product.name.en}
-                className="h-24 w-20 rounded-2xl object-cover"
+                className="h-20 w-16 shrink-0 rounded-2xl object-cover sm:h-24 sm:w-20"
               />
-              <div>
-                <p className="font-heading text-xl font-bold">{product.name.en}</p>
-                <p className="mt-1 text-sm text-neutral-500">
+              <div className="min-w-0">
+                <p className="break-words font-heading text-lg font-bold leading-tight sm:text-xl">{product.name.en}</p>
+                <p className="mt-1 break-words text-xs leading-6 text-neutral-500 sm:text-sm">
                   {product.category} / {dictionary.gender[product.gender]} / {product.sku}
                 </p>
-                <p className="mt-1 text-sm font-semibold">
+                <p className="mt-1 text-sm font-semibold leading-6">
                   {formatCurrency(product.price, locale)} · {dictionary.common.stock}: {product.stock}
                 </p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <Button variant="secondary" onClick={() => openEdit(product)}>
+            <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
+              <Button variant="secondary" className="w-full sm:w-auto" onClick={() => openEdit(product)}>
                 {dictionary.common.edit}
               </Button>
               <Button
                 variant="danger"
+                className="w-full sm:w-auto"
                 onClick={async () => {
                   try {
                     await deleteProduct(product.id);
@@ -302,7 +303,7 @@ export const AdminProductsPage = () => {
         title={editingProduct ? dictionary.admin.editProduct : dictionary.admin.addProduct}
         className="max-w-5xl"
       >
-        <form className="grid gap-5" onSubmit={handleSubmit}>
+        <form className="grid gap-4 sm:gap-5" onSubmit={handleSubmit}>
           <FormSection title={dictionary.admin.formSections.productBasics}>
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label={dictionary.admin.form.nameEn} error={errorFor('nameEn')}>
@@ -432,11 +433,11 @@ export const AdminProductsPage = () => {
                     key={image}
                     src={image}
                     alt=""
-                    className="h-36 w-full rounded-[22px] object-cover"
+                    className="h-28 w-full rounded-[18px] object-cover sm:h-36 sm:rounded-[22px]"
                   />
                 ))
               ) : (
-                <div className="rounded-[22px] border border-dashed border-neutral-300 p-6 text-sm text-neutral-500 sm:col-span-2 lg:col-span-4">
+                <div className="rounded-[18px] border border-dashed border-neutral-300 p-4 text-sm text-neutral-500 sm:col-span-2 sm:rounded-[22px] sm:p-6 lg:col-span-4">
                   {dictionary.admin.form.imagePreviewEmpty}
                 </div>
               )}
@@ -446,7 +447,7 @@ export const AdminProductsPage = () => {
           <FormSection title={dictionary.admin.formSections.storeFlags}>
             <div className="grid gap-3 sm:grid-cols-3">
               {flagFields.map((field) => (
-                <label key={field.name} className="surface-panel flex items-center gap-3 p-4 text-sm font-semibold">
+                <label key={field.name} className="surface-panel flex items-center gap-3 p-3.5 text-sm font-semibold sm:p-4">
                   <input type="checkbox" className="h-4 w-4 accent-black" {...form.register(field.name)} />
                   {field.label}
                 </label>
@@ -454,11 +455,11 @@ export const AdminProductsPage = () => {
             </div>
           </FormSection>
 
-          <div className="sticky bottom-0 -mx-5 -mb-5 flex flex-col gap-3 border-t border-neutral-200 bg-white/95 p-5 backdrop-blur sm:-mx-7 sm:-mb-7 sm:flex-row sm:justify-end sm:p-7">
-            <Button variant="secondary" onClick={() => setIsOpen(false)}>
+          <div className="sticky bottom-0 -mx-4 -mb-4 flex flex-col gap-3 border-t border-neutral-200 bg-white/95 p-4 backdrop-blur sm:-mx-7 sm:-mb-7 sm:flex-row sm:justify-end sm:p-7">
+            <Button variant="secondary" className="w-full sm:w-auto" onClick={() => setIsOpen(false)}>
               {dictionary.common.cancel}
             </Button>
-            <Button type="submit" disabled={form.formState.isSubmitting}>
+            <Button type="submit" className="w-full sm:w-auto" disabled={form.formState.isSubmitting}>
               {dictionary.common.save}
             </Button>
           </div>

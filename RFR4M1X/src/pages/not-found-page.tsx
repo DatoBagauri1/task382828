@@ -11,9 +11,9 @@ export const NotFoundPage = () => {
     <>
       <SEO title="404 | ALEXANDRA LIMITED COLLECTION" description={dictionary.misc.notFoundDescription} />
       <div className="container-shell section-space">
-        <div className="glass-panel mx-auto max-w-3xl px-8 py-14 text-center">
+        <div className="glass-panel mx-auto max-w-3xl px-4 py-8 text-center sm:px-8 sm:py-14">
           <p className="eyebrow">404</p>
-          <h1 className="mt-3 font-heading text-5xl font-bold tracking-tight">
+          <h1 className="mt-3 break-words font-heading text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
             {dictionary.misc.notFoundTitle}
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-8 text-neutral-600 sm:text-base">

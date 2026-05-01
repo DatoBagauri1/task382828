@@ -27,8 +27,8 @@ export const AdminOrdersPage = () => {
 
   if (!orders.length) {
     return (
-      <div className="surface-panel p-8 text-center">
-        <p className="font-heading text-3xl font-bold">{dictionary.common.empty}</p>
+      <div className="surface-panel p-5 text-center sm:p-8">
+        <p className="font-heading text-2xl font-bold sm:text-3xl">{dictionary.common.empty}</p>
         <p className="mt-3 text-sm text-neutral-500">{dictionary.admin.manageOrders}</p>
       </div>
     );
@@ -39,18 +39,18 @@ export const AdminOrdersPage = () => {
       {orders.map((order) => (
         <div
           key={order.id}
-          className="overflow-hidden rounded-[34px] border border-black/10 bg-white shadow-[0_24px_80px_rgba(10,10,10,0.08)]"
+          className="overflow-hidden rounded-[22px] border border-black/10 bg-white shadow-[0_24px_80px_rgba(10,10,10,0.08)] sm:rounded-[34px]"
         >
-          <div className="border-b border-black/5 bg-gradient-to-r from-neutral-950 to-neutral-800 p-6 text-white">
+          <div className="border-b border-black/5 bg-gradient-to-r from-neutral-950 to-neutral-800 p-4 text-white sm:p-6">
             <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
-              <div>
+              <div className="min-w-0">
                 <p className="text-xs uppercase tracking-[0.24em] text-white/55">{dictionary.common.order}</p>
-                <p className="mt-2 font-heading text-2xl font-bold">{order.id}</p>
-                <p className="mt-2 text-sm text-white/65">
+                <p className="mt-2 break-all font-heading text-xl font-bold leading-tight sm:text-2xl">{order.id}</p>
+                <p className="mt-2 break-words text-sm text-white/65">
                   {order.customerName} / {order.city} / {formatDate(order.createdAt, locale)}
                 </p>
               </div>
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-950">
                   {dictionary.orderStatus[order.status]}
                 </span>
@@ -64,7 +64,7 @@ export const AdminOrdersPage = () => {
                       toast.error(error instanceof Error ? error.message : dictionary.misc.updateFailed);
                     }
                   }}
-                  className="h-11 min-w-40 border-white/20 bg-white text-neutral-950"
+                  className="min-h-11 border-white/20 bg-white text-neutral-950 sm:min-w-40"
                 >
                   {(['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'] as OrderStatus[]).map((status) => (
                     <option key={status} value={status}>
@@ -72,11 +72,11 @@ export const AdminOrdersPage = () => {
                     </option>
                   ))}
                 </Select>
-                <span className="font-heading text-2xl font-bold">{formatCurrency(order.total, locale)}</span>
+                <span className="font-heading text-xl font-bold sm:text-2xl">{formatCurrency(order.total, locale)}</span>
               </div>
             </div>
           </div>
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
           <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">{dictionary.common.details}</p>
@@ -90,7 +90,7 @@ export const AdminOrdersPage = () => {
             </div>
           </div>
           <div className="mt-5 grid gap-4 lg:grid-cols-[0.9fr_0.9fr_1.2fr]">
-            <div className="rounded-[26px] bg-black/[0.035] p-5 text-sm ring-1 ring-black/5">
+            <div className="rounded-[20px] bg-black/[0.035] p-4 text-sm ring-1 ring-black/5 sm:rounded-[26px] sm:p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">
                 {dictionary.common.details}
               </p>
@@ -100,7 +100,7 @@ export const AdminOrdersPage = () => {
                 {order.address}, {order.city}
               </p>
             </div>
-            <div className="rounded-[26px] bg-black/[0.035] p-5 text-sm ring-1 ring-black/5">
+            <div className="rounded-[20px] bg-black/[0.035] p-4 text-sm ring-1 ring-black/5 sm:rounded-[26px] sm:p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">
                 {dictionary.checkout.payment}
               </p>
@@ -117,7 +117,7 @@ export const AdminOrdersPage = () => {
                 </p>
               )}
             </div>
-            <div className="rounded-[26px] bg-black/[0.035] p-5 text-sm ring-1 ring-black/5">
+            <div className="rounded-[20px] bg-black/[0.035] p-4 text-sm ring-1 ring-black/5 sm:rounded-[26px] sm:p-5">
               <div className="flex items-center justify-between gap-3">
                 <p className="text-xs uppercase tracking-[0.2em] text-neutral-500">
                   {dictionary.checkout.receiptUpload}
@@ -153,8 +153,8 @@ export const AdminOrdersPage = () => {
           </div>
           <div className="mt-5 grid gap-3">
             {order.items.map((item) => (
-              <div key={item.id} className="flex items-center justify-between gap-3 rounded-[24px] bg-black/[0.035] px-4 py-3 text-sm">
-                <span>
+              <div key={item.id} className="flex flex-col gap-2 rounded-[20px] bg-black/[0.035] px-4 py-3 text-sm sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:rounded-[24px]">
+                <span className="break-words">
                   {item.productName[locale]} / {item.size} / {item.color} x {item.quantity}
                 </span>
                 <span>{formatCurrency(item.price * item.quantity, locale)}</span>

@@ -36,12 +36,12 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 z-40 border-b border-neutral-200 bg-white/90 backdrop-blur-xl">
-      <div className="container-shell flex h-20 items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
+      <div className="container-shell flex min-h-16 items-center justify-between gap-2 py-2 sm:min-h-20 sm:gap-4">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-            className="rounded-full p-3 ring-1 ring-neutral-200 transition hover:bg-neutral-100 lg:hidden"
+            className="rounded-full p-2.5 ring-1 ring-neutral-200 transition hover:bg-neutral-100 sm:p-3 lg:hidden"
             aria-label="Toggle menu"
           >
             <Menu className="h-5 w-5" />
@@ -50,7 +50,7 @@ export const Header = () => {
             <img
               src="/brand-logo.png"
               alt={dictionary.brand}
-              className="h-12 w-12 rounded-full bg-black object-cover ring-1 ring-neutral-200"
+              className="h-10 w-10 shrink-0 rounded-full bg-black object-cover ring-1 ring-neutral-200 sm:h-12 sm:w-12"
             />
             <div className="hidden min-w-0 md:block">
               <p className="font-heading text-base font-bold leading-none">{brandPrimary}</p>
@@ -75,7 +75,7 @@ export const Header = () => {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <button
             type="button"
             onClick={toggleLocale}
@@ -93,7 +93,7 @@ export const Header = () => {
           </Link>
           <Link
             to="/wishlist"
-            className="relative rounded-full p-3 ring-1 ring-neutral-200 transition hover:bg-neutral-100"
+            className="relative rounded-full p-2.5 ring-1 ring-neutral-200 transition hover:bg-neutral-100 sm:p-3"
             aria-label={dictionary.nav.wishlist}
           >
             <Heart className="h-5 w-5" />
@@ -106,7 +106,7 @@ export const Header = () => {
           <button
             type="button"
             onClick={() => setCartOpen(true)}
-            className="relative rounded-full p-3 ring-1 ring-neutral-200 transition hover:bg-neutral-100"
+            className="relative rounded-full p-2.5 ring-1 ring-neutral-200 transition hover:bg-neutral-100 sm:p-3"
             aria-label={dictionary.nav.cart}
           >
             <ShoppingBag className="h-5 w-5" />
@@ -118,7 +118,7 @@ export const Header = () => {
           </button>
           <Link
             to={profile ? '/profile' : '/auth'}
-            className="rounded-full p-3 ring-1 ring-neutral-200 transition hover:bg-neutral-100"
+            className="rounded-full p-2.5 ring-1 ring-neutral-200 transition hover:bg-neutral-100 sm:p-3"
             aria-label={profile ? dictionary.nav.profile : dictionary.common.login}
           >
             <User2 className="h-5 w-5" />

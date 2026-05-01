@@ -23,25 +23,25 @@ export const CartPage = () => {
     <>
       <SEO title={`${dictionary.cart.title} | ALEXANDRA LIMITED COLLECTION`} description={dictionary.cart.emptyDescription} />
       <div className="container-shell section-space">
-        <div className="mb-8 flex items-center gap-3">
-          <ShoppingBag className="h-8 w-8" />
+        <div className="mb-6 flex items-center gap-3 sm:mb-8">
+          <ShoppingBag className="h-7 w-7 sm:h-8 sm:w-8" />
           <div>
             <p className="eyebrow">{dictionary.nav.cart}</p>
-            <h1 className="mt-2 font-heading text-4xl font-bold tracking-tight">
+            <h1 className="mt-2 break-words font-heading text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
               {dictionary.cart.title}
             </h1>
           </div>
         </div>
 
         {items.length ? (
-          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
             <div className="space-y-4">
               {items.map((item) => (
-                <div key={item.id} className="surface-panel flex flex-col gap-4 p-5 sm:flex-row">
+                <div key={item.id} className="surface-panel flex flex-col gap-4 p-4 sm:flex-row sm:p-5">
                   <img
                     src={item.product.images[0]}
                     alt={getLocalizedText(item.product.name, locale)}
-                    className="h-36 w-full rounded-[28px] object-cover sm:w-32"
+                    className="h-32 w-full rounded-[22px] object-cover sm:h-36 sm:w-32 sm:rounded-[28px]"
                   />
                   <div className="flex flex-1 flex-col gap-4">
                     <div className="flex flex-col justify-between gap-3 sm:flex-row">
@@ -49,7 +49,7 @@ export const CartPage = () => {
                         <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">
                           {item.product.category}
                         </p>
-                        <h2 className="mt-2 font-heading text-2xl font-bold">
+                        <h2 className="mt-2 break-words font-heading text-xl font-bold leading-tight sm:text-2xl">
                           {getLocalizedText(item.product.name, locale)}
                         </h2>
                         <p className="mt-2 text-sm text-neutral-500">
@@ -91,8 +91,8 @@ export const CartPage = () => {
               ))}
             </div>
 
-            <aside className="surface-panel h-fit space-y-6 p-6">
-              <h2 className="font-heading text-3xl font-bold">{dictionary.checkout.summary}</h2>
+            <aside className="surface-panel h-fit space-y-5 p-4 sm:space-y-6 sm:p-6">
+              <h2 className="break-words font-heading text-2xl font-bold leading-tight sm:text-3xl">{dictionary.checkout.summary}</h2>
               <div className="space-y-3 text-sm">
                 <div className="flex items-center justify-between">
                   <span>{dictionary.common.subtotal}</span>
@@ -107,7 +107,7 @@ export const CartPage = () => {
                   <input
                     type="text"
                     placeholder={dictionary.cart.discountPlaceholder}
-                    className="mt-3 h-11 w-full rounded-full border border-black/10 bg-transparent px-4 text-sm outline-none"
+                    className="mt-3 min-h-11 w-full rounded-full border border-black/10 bg-transparent px-4 text-base outline-none sm:text-sm"
                   />
                   <p className="mt-2 text-xs text-neutral-500">
                     {dictionary.cart.discountHint}

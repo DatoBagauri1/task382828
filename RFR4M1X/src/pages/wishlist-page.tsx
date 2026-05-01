@@ -20,9 +20,9 @@ export const WishlistPage = () => {
     <>
       <SEO title={`${dictionary.wishlist.title} | ALEXANDRA LIMITED COLLECTION`} description={dictionary.wishlist.description} />
       <div className="container-shell section-space">
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <p className="eyebrow">{dictionary.nav.wishlist}</p>
-          <h1 className="mt-3 font-heading text-4xl font-bold tracking-tight">
+          <h1 className="mt-3 break-words font-heading text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
             {dictionary.wishlist.title}
           </h1>
           <p className="mt-4 max-w-2xl text-sm leading-8 text-neutral-600 sm:text-base">

@@ -68,7 +68,7 @@ export const ProductPage = () => {
         image={product.images[0]}
       />
       <div className="container-shell section-space">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="grid gap-7 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
           <ProductGallery images={product.images} alt={getLocalizedText(product.name, locale)} />
           <div className="space-y-8">
             <div className="space-y-4">
@@ -81,7 +81,7 @@ export const ProductPage = () => {
                 <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">
                   {product.category} / {dictionary.gender[product.gender]}
                 </p>
-                <h1 className="mt-3 font-heading text-4xl font-bold tracking-tight sm:text-5xl">
+                <h1 className="mt-3 break-words font-heading text-3xl font-bold leading-tight tracking-tight sm:text-5xl">
                   {getLocalizedText(product.name, locale)}
                 </h1>
               </div>
@@ -91,8 +91,8 @@ export const ProductPage = () => {
                   {product.reviewCount} {dictionary.common.reviews}
                 </span>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="text-3xl font-bold">{formatCurrency(product.price, locale)}</span>
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-2xl font-bold sm:text-3xl">{formatCurrency(product.price, locale)}</span>
                 {product.oldPrice ? (
                   <span className="text-base text-neutral-400 line-through">
                     {formatCurrency(product.oldPrice, locale)}
@@ -104,7 +104,7 @@ export const ProductPage = () => {
               </p>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
               <div>
                 <p className="mb-3 text-sm font-semibold">{dictionary.product.selectSize}</p>
                 <div className="flex flex-wrap gap-2">
@@ -113,7 +113,7 @@ export const ProductPage = () => {
                       key={size}
                       type="button"
                       onClick={() => setSelectedSize(size)}
-                      className={`rounded-full px-4 py-2 text-sm ring-1 transition ${
+                      className={`rounded-full px-3.5 py-2 text-sm ring-1 transition sm:px-4 ${
                         activeSize === size
                           ? 'bg-ink text-white ring-ink'
                           : 'ring-black/10 hover:-translate-y-0.5 hover:bg-neutral-950 hover:text-white hover:ring-neutral-950'
@@ -132,7 +132,7 @@ export const ProductPage = () => {
                       key={color}
                       type="button"
                       onClick={() => setSelectedColor(color)}
-                      className={`rounded-full px-4 py-2 text-sm ring-1 transition ${
+                      className={`rounded-full px-3.5 py-2 text-sm ring-1 transition sm:px-4 ${
                         activeColor === color
                           ? 'bg-ink text-white ring-ink'
                           : 'ring-black/10 hover:-translate-y-0.5 hover:bg-neutral-950 hover:text-white hover:ring-neutral-950'
@@ -145,7 +145,7 @@ export const ProductPage = () => {
               </div>
             </div>
 
-            <div className="surface-panel grid gap-4 p-5 sm:grid-cols-2">
+            <div className="surface-panel grid gap-4 p-4 sm:grid-cols-2 sm:p-5">
               <div>
                 <p className="text-sm font-semibold">{dictionary.product.material}</p>
                 <p className="mt-2 text-sm leading-7 text-neutral-600">
@@ -160,7 +160,7 @@ export const ProductPage = () => {
               </div>
             </div>
 
-            <div className="surface-panel flex flex-wrap items-center gap-3 p-5">
+            <div className="surface-panel flex flex-wrap items-center gap-3 p-4 sm:p-5">
               <Badge className={product.stock <= 6 ? 'bg-neutral-900 text-white' : 'bg-neutral-100 text-neutral-900'}>
                 {product.stock <= 6 ? dictionary.product.lowStock : dictionary.product.inStock}
               </Badge>
@@ -198,7 +198,7 @@ export const ProductPage = () => {
           </div>
         </div>
 
-        <div className="mt-20">
+        <div className="mt-12 sm:mt-20">
           <SectionHeading
             eyebrow={dictionary.common.review}
             title={dictionary.product.reviewSummary}
@@ -208,7 +208,7 @@ export const ProductPage = () => {
             {reviewTemplates.map((review) => (
               <div key={review.id} className="surface-panel p-6">
                 <RatingStars value={review.rating} />
-                <h3 className="mt-4 font-heading text-2xl font-bold">
+                <h3 className="mt-4 break-words font-heading text-xl font-bold leading-tight sm:text-2xl">
                   {getLocalizedText(review.title, locale)}
                 </h3>
                 <p className="mt-3 text-sm leading-8 text-neutral-600">
@@ -222,7 +222,7 @@ export const ProductPage = () => {
           </div>
         </div>
 
-        <div className="mt-20">
+        <div className="mt-12 sm:mt-20">
           <SectionHeading
             eyebrow={dictionary.common.discover}
             title={dictionary.product.related}

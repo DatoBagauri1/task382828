@@ -59,13 +59,13 @@ export const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
         </div>
       </div>
 
-      <div className="space-y-4 p-5">
+      <div className="space-y-3 p-4 sm:space-y-4 sm:p-5">
         <div className="space-y-2">
-          <p className="text-xs uppercase tracking-[0.25em] text-neutral-500">
+          <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-500 sm:text-xs sm:tracking-[0.25em]">
             {product.category} / {dictionary.gender[product.gender]}
           </p>
           <Link to={`/product/${product.slug}`} className="block">
-            <h3 className="font-heading text-2xl font-bold leading-tight transition group-hover:text-neutral-950">
+            <h3 className="break-words font-heading text-xl font-bold leading-tight transition group-hover:text-neutral-950 sm:text-2xl">
               {getLocalizedText(product.name, locale)}
             </h3>
           </Link>
@@ -73,9 +73,9 @@ export const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
             {getLocalizedText(product.description, locale)}
           </p>
         </div>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-bold">{formatCurrency(product.price, locale)}</span>
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
+            <span className="text-base font-bold sm:text-lg">{formatCurrency(product.price, locale)}</span>
             {product.oldPrice ? (
               <span className="text-sm text-neutral-400 line-through">
                 {formatCurrency(product.oldPrice, locale)}
