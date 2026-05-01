@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        display: ['Cormorant Garamond', 'serif'],
         heading: ['Syne', 'sans-serif'],
         body: ['Manrope', 'sans-serif'],
       },

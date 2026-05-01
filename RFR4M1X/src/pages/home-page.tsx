@@ -25,6 +25,8 @@ export const HomePage = () => {
   const categories = useCommerceStore((state) => state.categories);
   const products = useCommerceStore((state) => state.products);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [heroName, ...heroTailWords] = dictionary.home.heroTitle.split(' ');
+  const heroTail = heroTailWords.join(' ');
 
   const featuredProducts = useMemo(
     () => products.filter((product) => product.flags.isFeatured).slice(0, 4),
@@ -52,10 +54,17 @@ export const HomePage = () => {
             <div className="relative flex flex-col justify-between gap-6 sm:gap-8">
               <div className="absolute -left-10 top-0 h-40 w-40 rounded-full bg-neutral-100 blur-3xl" />
               <div className="relative space-y-6">
-                <Badge>{dictionary.home.heroEyebrow}</Badge>
+                <p className="inline-flex rounded-full border border-neutral-300 bg-white/80 px-4 py-2 font-display text-base font-semibold italic leading-none text-neutral-950 shadow-soft sm:text-lg">
+                  {dictionary.home.heroEyebrow}
+                </p>
                 <div className="space-y-4">
-                  <h1 className="max-w-3xl break-words font-heading text-[clamp(2.45rem,13vw,3.5rem)] font-extrabold leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
-                    {dictionary.home.heroTitle}
+                  <h1 className="max-w-3xl text-balance font-display text-neutral-950">
+                    <span className="block text-[clamp(2.35rem,14.5vw,5.65rem)] font-bold leading-[0.86] sm:leading-[0.82]">
+                      {heroName}
+                    </span>
+                    <span className="mt-2 block max-w-[13ch] font-heading text-[clamp(1.05rem,6vw,2.25rem)] font-extrabold uppercase leading-none text-neutral-700 sm:max-w-none">
+                      {heroTail}
+                    </span>
                   </h1>
                   <p className="max-w-2xl text-sm leading-7 text-neutral-600 sm:text-base sm:leading-8">
                     {dictionary.home.heroDescription}
